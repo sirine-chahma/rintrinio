@@ -1,7 +1,27 @@
 library(tidyverse)
 
-# Function that gathers a given statement at a specific time for different companies
+# Function that gathers a given financial statement for a company for specificed years and quarters
 
+#' Given the tickers, statement, year and period returns all the financial information from the Intrinio API stock data 
+#'
+#' @param api_key character (sandbox or production) from Intrinio
+#' @param ticker ticker symbol
+#' @param statement character that represents the financial statement that you want to study
+#' @param year vector of the years (as characters) you want the information for
+#' @param period vector of the periods (characters) you want the information from
+#'
+#' @return a dataframe that contains information about the given statement for a given ticker for the specified years
+
+#' @export
+#' @examples
+#' gather_financial_statement_time_series(api_key, 'AAPL', 'income_statement', ['2018,'2019'], ['Q1'])
+
+gather_financial_statement_time_series <- function(api_key, ticker, statement, year, period){
+  tibble()
+}
+
+
+# Function that gathers a given statement at a specific time for different companies
 #' Given the tickers, statement, year and period returns all the information from the Intrinio API fundamental reported financials
 #'   for that time and those tickers in either a dictionary or a pandas dataframe format.
 #'
