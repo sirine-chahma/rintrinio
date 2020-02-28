@@ -81,7 +81,7 @@ have signed up for the appropriate account, you can find your API key
 
 ## Functions
 
-1.  **gather\_financial\_statement\_time\_series()**:
+1.  **gather\_financial\_statement\_time\_series()**: This function takes in a single stock ticker symbol and returns the specified financial statement, for the user mentioned years and quarters as a dataframe
 2.  **gather\_financial\_statement\_company\_compare()**: This function
     takes in a vector containing the tickers of the companies we want to
     compare, the statement we want to focus on, the year and the period
