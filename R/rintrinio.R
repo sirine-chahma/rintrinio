@@ -12,7 +12,7 @@ library(tidyverse)
 #' @param period character that represents the period you want the information from
 #'
 #' @return a dataframe that contains information about the given statement for the given tickers at the given time
-#'
+#' @export
 #' @examples
 #' gather_financial_statement_company_compare(api_key, ['AAPL', 'CSCO'], 'income_statement', '2019', 'Q1')
 
