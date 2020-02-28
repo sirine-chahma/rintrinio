@@ -1,5 +1,26 @@
 library(tidyverse)
 
+# Function that gathers a given statement at a specific time for different companies
+
+#' Given the tickers, statement, year and period returns all the information from the Intrinio API fundamental reported financials
+#'   for that time and those tickers in either a dictionary or a pandas dataframe format.
+#'
+#' @param api_key character (sandbox or production) from Intrinio
+#' @param ticker vector of characters ticker symbols
+#' @param statement character that represents the statement that you want to study
+#' @param year character that represents the year you want the information from
+#' @param period character that represents the period you want the information from
+#'
+#' @return a dataframe that contains information about the given statement for the given tickers at the given time
+#' @export
+#' @examples
+#' gather_financial_statement_company_compare(api_key, ['AAPL', 'CSCO'], 'income_statement', '2019', 'Q1')
+
+gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period) {
+  tibble()
+}
+
+
 # Function that calculates the stock returns
 
 #' Given the tickers, buy-in date, sell-out date, returns the historical prices and profit/loss

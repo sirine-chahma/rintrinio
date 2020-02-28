@@ -82,7 +82,13 @@ have signed up for the appropriate account, you can find your API key
 ## Functions
 
 1.  **gather\_financial\_statement\_time\_series()**:
-2.  **gather\_financial\_statement\_company\_compare()**:
+2.  **gather\_financial\_statement\_company\_compare()**: This function
+    takes in a vector containing the tickers of the companies we want to
+    compare, the statement we want to focus on, the year and the period
+    of the year we want to study, and a string specifying if we want the
+    output as a dictionnary or a data frame. It returns a table or a
+    data frame (depending on the input) of the informations in the
+    selected statement, for the selected companies at the wanted time.
 3.  **gather\_stock\_time\_series()**: This function takes in a single
     stock ticker symbol and returns historical stock price data from a
     timeframe, returned as a dataframe.
