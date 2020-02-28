@@ -23,7 +23,7 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 
 # Function that gathers a given statement at a specific time for different companies
 #' Given the tickers, statement, year and period returns all the information from the Intrinio API fundamental reported financials
-#'   for that time and those tickers in either a dictionary or a pandas dataframe format.
+#'   for that time and those tickers as a dataframe
 #'
 #' @param api_key character (sandbox or production) from Intrinio
 #' @param ticker vector of characters ticker symbols
