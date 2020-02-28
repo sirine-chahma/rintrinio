@@ -41,6 +41,26 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 }
 
 
+# Function that gathers historical stock price information
+
+#' Given the ticker, start date, and end date, return from the Intrinio API stock data 
+#' for that time frame in either a dictionary or a pandas dataframe format.
+#'
+#' @param api_key character (sandbox or production) from Intrinio
+#' @param ticker character the ticker symbol you would like to get stock data for
+#' @param start_date character optional earliest date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
+#' @param end_date character optional most recent date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
+#'
+#' @return a dataframe that contains stock data for the specific timefram
+#' @export
+#'
+#' @examples
+#' gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
+gather_stock_time_series <- function(api_key, ticker, start_date, end_date) {
+  tibble()
+}
+
+
 # Function that calculates the stock returns
 
 #' Given the tickers, buy-in date, sell-out date, returns the historical prices and profit/loss
