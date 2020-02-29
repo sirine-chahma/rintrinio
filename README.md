@@ -7,7 +7,8 @@
 
 <!-- badges: end -->
 
-R package converts Intrinio objects and lists to dataframes.
+R (R Core Team 2019) package converts Intrinio (Swagger Codegen
+community 2020) objects and lists to dataframes.
 
 ## The Project
 
@@ -31,10 +32,10 @@ Intrinio is an excellent source to get data into the R environment to
 analyse data, but a problem persists that the data can’t be directly
 analysed from Intrinio objects. That is where rintrinio comes in. This
 package will offer a variety of functions that allow users to seamlessly
-transform Intrinio objects into either R dataframes. This will enable
-users of the data to make the most of Intrinio’s reliable and
-easy-to-use API platform, as well as the analysis capabilities that are
-available in R’s environment.
+transform Intrinio objects into dataframes. This will enable users of
+the data to make the most of Intrinio’s reliable and easy-to-use API
+platform, as well as the analysis capabilities that are available in R’s
+environment.
 
 ## rintrinio in the R Ecosystem
 
@@ -65,6 +66,8 @@ devtools::install_github("Zhang-Haipeng/rintrinio")
 
 ### Dependencies
 
+#### Getting an API Key
+
 Before using any functions included in this package, you must sign up
 for an appropriate [Intrinio account](https://intrinio.com/). Once you
 have signed up for the appropriate account, you can find your API key
@@ -75,20 +78,53 @@ have signed up for the appropriate account, you can find your API key
 3.  Copy your relevant API Key. Note that this is unique to you and
     should not be shared.
 
-<!-- end list -->
+#### Installing Intrinio R SDK
 
-  - TODO
+Please note that the Intrinio R SDK is not available via CRAN. To
+install, follow these steps, as outlined in the [Intrinio R
+Documentation](https://docs.intrinio.com/documentation/r).
+
+In an R console, install `devtools` if it is not already installed:
+
+``` r
+if(!require(devtools)) { install.packages("devtools") }
+```
+
+Clone the Intrinio R SDK Github Repository:
+
+``` r
+git clone https://github.com/intrinio/r-sdk.git
+```
+
+Set your working directory to where you cloned the Intrinio R SDK Github
+Repository and install the `IntrinioSDK` package via the R console:
+
+``` r
+library(devtools)
+install(".")
+```
+
+#### Program and Package Dependencies
+
+R version 3.6.1 and R packages:
+
+  - knitr==1.26 (Xie 2020)
+  - tidyverse==1.2.1 (Wickham 2017)
+  - IntrinioSDK==0.1.0 (Swagger Codegen community 2020)
 
 ## Functions
 
-1.  **gather\_financial\_statement\_time\_series()**: This function takes in a single stock ticker symbol and returns the specified financial statement, for the user mentioned years and quarters as a dataframe
+1.  **gather\_financial\_statement\_time\_series()**: This function
+    takes in a single stock ticker symbol, the statement, the year, and
+    a vector of various periods to compare. It returns a data frame of
+    the information in the selected statement, for a time-series
+    analysis of the company specified.
 2.  **gather\_financial\_statement\_company\_compare()**: This function
     takes in a vector containing the tickers of the companies we want to
-    compare, the statement we want to focus on, the year and the period
-    of the year we want to study, and a string specifying if we want the
-    output as a dictionnary or a data frame. It returns a table or a
-    data frame (depending on the input) of the informations in the
-    selected statement, for the selected companies at the wanted time.
+    compare, the statement we want to focus on, and the year and the
+    period of the year we want to study. It returns a dataframe of the
+    information in the selected statement, for the selected companies at
+    the wanted time.
 3.  **gather\_stock\_time\_series()**: This function takes in a single
     stock ticker symbol and returns historical stock price data from a
     timeframe, returned as a dataframe.
@@ -97,26 +133,37 @@ have signed up for the appropriate account, you can find your API key
     containing the historical prices at buy-in and sell-out date as well
     as the corresponding returns (profit/loss).
 
-## Example
+# References
 
-This is a basic example which shows you how to solve a common problem:
+<div id="refs" class="references">
 
-``` r
-#library(rintrinio)
-## basic example code
-```
+<div id="ref-R">
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+R Core Team. 2019. *R: A Language and Environment for Statistical
+Computing*. Vienna, Austria: R Foundation for Statistical Computing.
+<https://www.R-project.org/>.
 
-``` r
-#summary(cars)
-```
+</div>
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
+<div id="ref-intrinio">
 
-You can also embed plots, for example:
+Swagger Codegen community. 2020. *IntrinioSDK: R Package Client for
+Intrinio Api*.
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+</div>
+
+<div id="ref-tidyverse">
+
+Wickham, Hadley. 2017. *Tidyverse: Easily Install and Load the
+’Tidyverse’*. <https://CRAN.R-project.org/package=tidyverse>.
+
+</div>
+
+<div id="ref-knitr">
+
+Xie, Yihui. 2020. *Knitr: A General-Purpose Package for Dynamic Report
+Generation in R*. <https://yihui.org/knitr/>.
+
+</div>
+
+</div>
