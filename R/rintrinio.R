@@ -1,4 +1,5 @@
 library(tidyverse)
+library(IntrinioSDK)
 
 # Function that gathers a given financial statement for a company for specificed years and quarters
 
@@ -56,8 +57,34 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #'
 #' @examples
 #' gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
-gather_stock_time_series <- function(api_key, ticker, start_date, end_date) {
-  tibble()
+gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='') {
+  # initialize a new API client
+  client <- IntrinioSDK::ApiClient$new()
+  
+  # Initialize with your API key
+  client$configuration$apiKey <- api_key
+  
+  # set up options
+  if (start_date != '' & end_date != '') {
+    opts <- list(start_date = as.Date(start_date), end_date = as.Date(end_date))
+  }
+  else if (start_date != '') {
+    opts <- list(start_date = as.Date(start_date))
+  }
+  else if (end_date != '') {
+    opts <- list(end_date = as.Date(end_date))
+  }
+  else {
+    opts <- list()
+  }
+  
+  # Set up Security API
+  SecurityApi <- IntrinioSDK::SecurityApi$new(client)
+  
+  # get result
+  result <- SecurityApi$get_security_stock_prices(ticker, opts)$content$stock_prices_data_frame
+  
+  return(result)
 }
 
 
