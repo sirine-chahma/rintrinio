@@ -80,20 +80,18 @@ gather_stock_time_series <- function(api_key, ticker, start_date, end_date) {
 #' gather_stock_returns(api_key, c('AAPL', 'CSCO'), "2017-12-31", "2019-03-01")
 
 gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
-
-    
-    
+  
+  # test whether the input dates are in the right format
   t <- try({buy_date <- as.Date(buy_date)
             sell_date <- as.Date(sell_date)}, silent=T)
   if("try-error" %in% class(t)) {
       return("Invalid Date format - please input the date as a string with format %Y-%m-%d")
   }    
-    
-    
-    
-    
+  if (buy_date >= sell_date){
+      return("Invalid Input: `sell_date` is earlier than `buy_date`.")
+  }
+  
   client <- IntrinioSDK::ApiClient$new()
-
   # Configure API key authorization: ApiKeyAuth
   client$configuration$apiKey <- api_key
 
@@ -105,6 +103,13 @@ gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
   buy_date_upper <- buy_date + 10
   sell_date <- as.Date(sell_date)
   sell_date_lower <- sell_date - 10 
+  
+  # test if the API Key works
+  t <- try({opts <- list(start_date=buy_date, end_date=sell_date)
+            x <- SecurityApi$get_security_stock_prices('AAPL', opts)$content$stock_prices_data_frame$adj_close}, silent=T)
+  if(is.null(x)) {
+      return("Incorrect API Key - please input a valid API key as a string")
+  } 
 
   # create vectors to record the results
   rcd_buy_price <- c()
