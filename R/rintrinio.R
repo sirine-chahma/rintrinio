@@ -1,4 +1,7 @@
-library(tidyverse)
+# library(tidyverse) # according to slack, it's suggested not to load the whole tidyverse
+library(IntrinioSDK)
+library(dplyr)
+library(tidyr) 
 
 # Function that gathers a given financial statement for a company for specificed years and quarters
 
