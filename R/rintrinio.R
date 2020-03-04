@@ -76,6 +76,8 @@ gather_stock_time_series <- function(api_key, ticker, start_date, end_date) {
 #'
 #' @examples
 #' gather_stock_returns(api_key, ['AAPL', 'AMZON'], "2017-12-31", "2019-03-01")
+
+# create branch 
 gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
   tibble()
 }
