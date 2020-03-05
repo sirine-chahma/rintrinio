@@ -101,7 +101,7 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
     result <- SecurityApi$get_security_stock_prices(ticker, opts)$content$stock_prices_data_frame
     
   }, silent=T)
-  if("try-error" %in% class(api_error)) {
+  if(is.null(result)) {
     return("Incorrect API Key - please input a valid API key as a string")
   }
   
