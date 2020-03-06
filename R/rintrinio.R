@@ -4,15 +4,15 @@ options(warn=-1)
 
 # Function that gathers a given financial statement for a company for specificed years and quarters
 
-#' Given the tickers, statement, year and period returns complete available financial information from the Intrinio API stock data 
+#' Given the ticker, statement, year(s) and period(s) return the complete available financial information from the Intrinio API stock data 
 #'
 #' @param api_key character (sandbox or production) from Intrinio
-#' @param ticker ticker symbol
+#' @param ticker character ticker symbol
 #' @param statement character that represents the financial statement that you want to study
-#' @param year vector of the years (as characters) you want the information for
-#' @param period vector of the periods (characters) you want the information from
+#' @param year character vector of the year(s) you want the information for
+#' @param period character vector of the period(s) you want the information for
 #'
-#' @return a dataframe that contains information about the company for a given statement for a given ticker for the specified years
+#' @return a dataframe that contains financial statement about the company(ticker) for the specified time frame
 
 #' @export
 #' @examples
@@ -37,7 +37,7 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
   }
   
   if (typeof(year) != "character") {
-    stop("The year must be a vector of string(s). For ex. c('2016', '2018')")
+    stop("The year must be a character vector. For ex. c('2016', '2018')")
   }
   
   for(y in year){
@@ -47,7 +47,7 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
   }
   
   if (typeof(period) != "character") {
-    stop("The year must be a vector of string(s). For ex. c('Q1', 'Q3')")
+    stop("The year must be a character vector. For ex. c('Q1', 'Q3')")
   }
   
   available_statements <- c('income_statement', 'cash_flow_statement', 'balance_sheet_statement')
@@ -61,11 +61,19 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
   ## List of available tickers with sandbox key: 
   ## https://product.intrinio.com/developer-sandbox/coverage/us-fundamentals-financials-metrics-ratios-stock-prices
   
-  available_tickers = c('AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM')
+  available_tickers <- c('AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM')
   
   if (ticker %notin% available_tickers) {
     stop("Valid entries for ticker provided in the Readme.md")
   }
+  
+  available_period <- c('Q1','Q2','Q3','Q4') 
+  
+  for(q in period){
+    if(q %notin% available_period){
+      stop("Valid entries for period are a combination Q1/2/3/4. For ex. c('Q1','Q3')")
+    }
+  }    
   
   client <- IntrinioSDK::ApiClient$new()
   
