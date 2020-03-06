@@ -58,26 +58,6 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #' @examples
 #' gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
 gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='') {
-  # throw an error if the start_date format is incorrect
-  if (start_date != '') {
-    start_date_format_error <- try({start_date <- as.Date(start_date)}, silent=T)
-    if("try-error" %in% class(start_date_format_error)) {
-      return("Invalid Date format - please input the date as a string with format %Y-%m-%d")
-    }
-  }
-  
-  # throw an error if the end_date format is incorrect
-  if (end_date != '') {
-    end_date_format_error <- try({end_date <- as.Date(end_date)}, silent=T)
-    if("try-error" %in% class(end_date_format_error)) {
-      return("Invalid Date format - please input the date as a string with format %Y-%m-%d")
-    }
-  }
-  
-  # throw an error if the start date is after the end date
-  if (start_date != '' & end_date != '' & start_date >= end_date){
-    return("Invalid Input: `sell_date` is earlier than `buy_date`.")
-  }
   
   # set up options
   if (start_date != '' & end_date != '') {
