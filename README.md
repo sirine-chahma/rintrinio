@@ -87,6 +87,11 @@ have signed up for the appropriate account, you can find your API key
 3.  Copy your relevant API Key. Note that this is unique to you and
     should not be shared.
 
+If you are using a free version of Intrinio for educational purposes,
+please note that you will only have access to the [Developer
+Sandbox](https://product.intrinio.com/developer-sandbox) so use that API
+key in functions.
+
 #### Installing Intrinio R SDK
 
 Please note that the Intrinio R SDK is not available via CRAN. To
