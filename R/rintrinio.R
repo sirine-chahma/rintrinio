@@ -77,7 +77,7 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
   client <- IntrinioSDK::ApiClient$new()
   
   # Configure API key authorization: ApiKeyAuth
-  client$configuration$apiKey <- key
+  client$configuration$apiKey <- api_key
   
   # Setup API with client
   FundamentalsApi <- IntrinioSDK::FundamentalsApi$new(client)
@@ -231,3 +231,11 @@ gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
 
   return(result)
 }
+
+
+api_key <- 'OmEzNGY3MGEwMDIwZGM5Y2UxNDZhNzUzMTgzYTJiNWI2'
+ticker <- c("AAPL", 'CSCO')
+statement <- "income_statement"
+year <- "2018"
+period <- "Q1"
+gather_financial_statement_company_compare(api_key, ticker, statement, year, period)

@@ -64,6 +64,15 @@ And the development version from [GitHub](https://github.com/) with:
 devtools::install_github("Zhang-Haipeng/rintrinio")
 ```
 
+## Coverage
+
+To get the line coverage, run the following command line code :
+
+``` r
+install.packages("covr")
+covr::report()
+```
+
 ### Dependencies
 
 #### Getting an API Key
