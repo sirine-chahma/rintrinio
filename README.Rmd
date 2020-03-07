@@ -47,6 +47,15 @@ And the development version from [GitHub](https://github.com/) with:
 devtools::install_github("Zhang-Haipeng/rintrinio")
 ```
 
+## Coverage
+
+To get the line coverage, run the following command line code  : 
+
+```r
+install.packages("covr")
+covr::report()
+```
+
 ### Dependencies
 
 #### Getting an API Key
@@ -55,6 +64,8 @@ Before using any functions included in this package, you must sign up for an app
 1. In the top right corner, select `My Account`
 2. In the left hand menu, select `API KEYS`
 3. Copy your relevant API Key. Note that this is unique to you and should not be shared.
+
+If you are using a free version of Intrinio for educational purposes, please note that you will only have access to the [Developer Sandbox](https://product.intrinio.com/developer-sandbox) so use that API key in functions.
 
 #### Installing Intrinio R SDK
 Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r).
