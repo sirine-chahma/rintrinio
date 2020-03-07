@@ -1,5 +1,7 @@
+# library(tidyverse) # according to slack, it's suggested not to load the whole tidyverse
 library(IntrinioSDK)
 library(dplyr)
+
 library(tidyr)
 options(warn=-1)
 
@@ -180,7 +182,7 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
   client <- IntrinioSDK::ApiClient$new()
 
   # Configure API key authorization: ApiKeyAuth
-  client$configuration$apiKey <- key
+  client$configuration$apiKey <- api_key
 
   # Setup API with client
   FundamentalsApi <- IntrinioSDK::FundamentalsApi$new(client)
@@ -275,7 +277,6 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
   }
   
   return(result)
-}
 
 
 # Function that calculates the stock returns
