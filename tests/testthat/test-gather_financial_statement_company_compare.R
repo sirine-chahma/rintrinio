@@ -12,9 +12,9 @@ statement <- "income_statement"
 year <- "2018"
 period <- "Q1"
 
-#Test that it returns an error if the names in the tickers are not valid
-test_that("The names in the ticker are not vaid", {
-  expect_error(gather_financial_statement_company_compare('AAAA', ticker, statement, year, period))
+#Test that it returns an error if the statement is not valid
+test_that("The statement is not valid", {
+  expect_error(gather_financial_statement_company_compare(api_key, ticker, 'a_statement', year, period))
 })
 
 # test that return type is a dataframe

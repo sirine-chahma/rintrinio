@@ -38,14 +38,13 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 
 gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
   
-  tickers <-  c('AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM')
+  statements <-  c('income_statement', 'balance_sheet_statement', 'cash_flow_statement')
   
-  #Check if the names in the ticker are valid
-  for (tick in tickers){
-    if (!(tick %in% tickers)){
-      stop('the names in the ticker must exist')
-    }
+  #Check if the statement is valid
+  if (!(statement %in% statements)){
+    stop('the statement must exist')
   }
+  
   #check if the api_key is a string
   if (typeof(api_key) != "character"){
     stop("the api_key must be a string")
