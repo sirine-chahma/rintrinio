@@ -36,8 +36,85 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 #' @examples
 #' gather_financial_statement_company_compare(api_key, ['AAPL', 'CSCO'], 'income_statement', '2019', 'Q1')
 
-gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period) {
-  tibble()
+gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
+  
+  #check if the api_key is a string
+  if (typeof(api_key) != "character"){
+    stop("the api_key must be a string")
+  }
+  
+  #check if the ticker is a string
+  if (typeof(ticker) != "character") {
+    stop("the ticker must be a string")
+  }
+  
+  #check if the statement is a string
+  if (typeof(statement) != "character") {
+    stop("the statement must be a string")
+  }
+  
+  #check if the year is a string
+  if (typeof(year) != "character") {
+    stop("the year must be a string")
+  }
+  
+  #check if the period is a string
+  if (typeof(period) != "character") {
+    stop("the period must be a string")
+  }
+  
+  
+  client <- IntrinioSDK::ApiClient$new()
+  
+  # Configure API key authorization: ApiKeyAuth
+  client$configuration$apiKey <- key
+  
+  # Setup API with client
+  FundamentalsApi <- IntrinioSDK::FundamentalsApi$new(client)
+  
+  #final dataframe
+  result = c()
+  
+  for (comp in seq(length(ticker))){
+    
+    #set the id
+    id <- paste(ticker[comp], statement, year, period, sep='-')
+    
+    response <- FundamentalsApi$get_fundamental_standardized_financials(id)
+    
+    #create a vector for each information
+    my_list <- c(c('ticker',ticker[comp]), c('statement', statement), c('year', year), c('period', period))
+    
+    for (i in 1:(length(response$content$standardized_financials))){
+      value <- response$content$standardized_financials[[i]]$value
+      data_tag <- response$content$standardized_financials[[i]]$data_tag$tag
+      balance <- response$content$standardized_financials[[i]]$data_tag$balance
+      
+      if (is.na(balance) || balance=="credit"){
+        value = -value
+      }
+      #my_list contains all the tags and the corresponding values
+      my_list <- c(my_list, c(data_tag, value))
+    }
+    #name will be a vector of the tags
+    name <- c()
+    #value contains the values of those tags
+    value <- c()
+    
+    for (j in seq(length(my_list)/2)){
+      name <- c(name, my_list[2*j-1])
+      value <- c(value, my_list[2*j])
+    }
+    #create the final dataframe
+    data <- data.frame(name, value)
+    if(length(result)==0){
+      result <- data
+    }
+    else{
+      result <- full_join(result, data, by='name')
+    }
+  }
+  result
 }
 
 
