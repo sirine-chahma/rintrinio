@@ -1,5 +1,6 @@
-library(tidyverse)
 library(IntrinioSDK)
+library(dplyr)
+library(tidyr)
 
 # Function that gathers a given financial statement for a company for specificed years and quarters
 
@@ -37,8 +38,85 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 #' @examples
 #' gather_financial_statement_company_compare(api_key, ['AAPL', 'CSCO'], 'income_statement', '2019', 'Q1')
 
-gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period) {
-  tibble()
+gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
+  
+  #check if the api_key is a string
+  if (typeof(api_key) != "character"){
+    stop("the api_key must be a string")
+  }
+  
+  #check if the ticker is a string
+  if (typeof(ticker) != "character") {
+    stop("the ticker must be a string")
+  }
+  
+  #check if the statement is a string
+  if (typeof(statement) != "character") {
+    stop("the statement must be a string")
+  }
+  
+  #check if the year is a string
+  if (typeof(year) != "character") {
+    stop("the year must be a string")
+  }
+  
+  #check if the period is a string
+  if (typeof(period) != "character") {
+    stop("the period must be a string")
+  }
+  
+  
+  client <- IntrinioSDK::ApiClient$new()
+  
+  # Configure API key authorization: ApiKeyAuth
+  client$configuration$apiKey <- key
+  
+  # Setup API with client
+  FundamentalsApi <- IntrinioSDK::FundamentalsApi$new(client)
+  
+  #final dataframe
+  result = c()
+  
+  for (comp in seq(length(ticker))){
+    
+    #set the id
+    id <- paste(ticker[comp], statement, year, period, sep='-')
+    
+    response <- FundamentalsApi$get_fundamental_standardized_financials(id)
+    
+    #create a vector for each information
+    my_list <- c(c('ticker',ticker[comp]), c('statement', statement), c('year', year), c('period', period))
+    
+    for (i in 1:(length(response$content$standardized_financials))){
+      value <- response$content$standardized_financials[[i]]$value
+      data_tag <- response$content$standardized_financials[[i]]$data_tag$tag
+      balance <- response$content$standardized_financials[[i]]$data_tag$balance
+      
+      if (is.na(balance) || balance=="credit"){
+        value = -value
+      }
+      #my_list contains all the tags and the corresponding values
+      my_list <- c(my_list, c(data_tag, value))
+    }
+    #name will be a vector of the tags
+    name <- c()
+    #value contains the values of those tags
+    value <- c()
+    
+    for (j in seq(length(my_list)/2)){
+      name <- c(name, my_list[2*j-1])
+      value <- c(value, my_list[2*j])
+    }
+    #create the final dataframe
+    data <- data.frame(name, value)
+    if(length(result)==0){
+      result <- data
+    }
+    else{
+      result <- full_join(result, data, by='name')
+    }
+  }
+  result
 }
 
 
@@ -95,15 +173,80 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
 #'
 #' @param api_key character (sandbox or production) from Intrinio
 #' @param ticker character ticker symbols or a vector of ticker symbols
-#' @param buy_date character the buy-in date in the format of "%Y-%m-%d", e.g. "2019-12-31"
+#' @param buy_date character the buy-in date in the format of "%Y-%m-%d", e.g. "2019-12-31" 
+#' If the input date is not a trading day, it will be automatically changed to the next nearest trading day. 
 #' @param sell_date character the sell-out date in the format of "%Y-%m-%d", e.g. "2019-12-31"
+#' If the input date is not a trading day, it will be automatically changed to the last nearest trading day. 
 #'
 #' @return a dataframe that contains the companies, historical prices and corresponding
 #' profit/loss
 #' @export
 #'
 #' @examples
-#' gather_stock_returns(api_key, ['AAPL', 'AMZON'], "2017-12-31", "2019-03-01")
+#' gather_stock_returns(api_key, c('AAPL', 'CSCO'), "2017-12-31", "2019-03-01")
+
 gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
-  tibble()
+  
+  # test whether the input dates are in the right format
+  t <- try({buy_date <- as.Date(buy_date)
+            sell_date <- as.Date(sell_date)}, silent=T)
+  if("try-error" %in% class(t)) {
+      return("Invalid Date format - please input the date as a string with format %Y-%m-%d")
+  }    
+  if (buy_date >= sell_date){
+      return("Invalid Input: `sell_date` is earlier than `buy_date`.")
+  }
+  
+  client <- IntrinioSDK::ApiClient$new()
+  # Configure API key authorization: ApiKeyAuth
+  client$configuration$apiKey <- api_key
+
+  # Setup API with client
+  SecurityApi <- IntrinioSDK::SecurityApi$new(client)
+
+  # convert date type
+  buy_date <- as.Date(buy_date)
+  buy_date_upper <- buy_date + 10
+  sell_date <- as.Date(sell_date)
+  sell_date_lower <- sell_date - 10 
+  
+  # test if the API Key works
+  t <- try({opts <- list(start_date=buy_date, end_date=sell_date)
+            x <- SecurityApi$get_security_stock_prices('AAPL', opts)$content$stock_prices_data_frame$adj_close}, silent=T)
+  if(is.null(x)) {
+      return("Incorrect API Key - please input a valid API key as a string")
+  } 
+
+  # create vectors to record the results
+  rcd_buy_price <- c()
+  rcd_sell_price <- c()
+  rcd_rtn <- c()
+      
+  for (x in ticker){
+
+    opts <- list(start_date=buy_date, end_date=buy_date_upper)
+    buy_date <- tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
+    buy_price <- tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
+
+    opts <- list(start_date=sell_date_lower, end_date=sell_date)
+    sell_date <- head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
+    sell_price <- head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
+
+    rnt <- ((sell_price - buy_price) / buy_price) * 100
+
+    rcd_buy_price <- c(rcd_buy_price, round(buy_price, 4))
+    rcd_sell_price <- c(rcd_sell_price, round(sell_price, 4))
+    rcd_rtn <- c(rcd_rtn, round(rnt, 2))
+
+  }
+
+  result <- tibble('Stock' = ticker, 
+          'Buy date' = buy_date, 
+          'Buy price' = rcd_buy_price, 
+          'Sell date' = sell_date, 
+          'Sell price' = rcd_sell_price, 
+          'Return (%)' = rcd_rtn
+        )
+
+  return(result)
 }
