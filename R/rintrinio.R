@@ -1,4 +1,7 @@
-library(tidyverse)
+# library(tidyverse) # according to slack, it's suggested not to load the whole tidyverse
+library(IntrinioSDK)
+library(dplyr)
+library(tidyr) 
 
 # Function that gathers a given financial statement for a company for specificed years and quarters
 
@@ -152,16 +155,80 @@ gather_stock_time_series <- function(api_key, ticker, start_date, end_date) {
 #'
 #' @param api_key character (sandbox or production) from Intrinio
 #' @param ticker character ticker symbols or a vector of ticker symbols
-#' @param buy_date character the buy-in date in the format of "%Y-%m-%d", e.g. "2019-12-31"
+#' @param buy_date character the buy-in date in the format of "%Y-%m-%d", e.g. "2019-12-31" 
+#' If the input date is not a trading day, it will be automatically changed to the next nearest trading day. 
 #' @param sell_date character the sell-out date in the format of "%Y-%m-%d", e.g. "2019-12-31"
+#' If the input date is not a trading day, it will be automatically changed to the last nearest trading day. 
 #'
 #' @return a dataframe that contains the companies, historical prices and corresponding
 #' profit/loss
 #' @export
 #'
 #' @examples
-#' gather_stock_returns(api_key, ['AAPL', 'AMZON'], "2017-12-31", "2019-03-01")
-gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
-  tibble()
-}
+#' gather_stock_returns(api_key, c('AAPL', 'CSCO'), "2017-12-31", "2019-03-01")
 
+gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
+  
+  # test whether the input dates are in the right format
+  t <- try({buy_date <- as.Date(buy_date)
+            sell_date <- as.Date(sell_date)}, silent=T)
+  if("try-error" %in% class(t)) {
+      return("Invalid Date format - please input the date as a string with format %Y-%m-%d")
+  }    
+  if (buy_date >= sell_date){
+      return("Invalid Input: `sell_date` is earlier than `buy_date`.")
+  }
+  
+  client <- IntrinioSDK::ApiClient$new()
+  # Configure API key authorization: ApiKeyAuth
+  client$configuration$apiKey <- api_key
+
+  # Setup API with client
+  SecurityApi <- IntrinioSDK::SecurityApi$new(client)
+
+  # convert date type
+  buy_date <- as.Date(buy_date)
+  buy_date_upper <- buy_date + 10
+  sell_date <- as.Date(sell_date)
+  sell_date_lower <- sell_date - 10 
+  
+  # test if the API Key works
+  t <- try({opts <- list(start_date=buy_date, end_date=sell_date)
+            x <- SecurityApi$get_security_stock_prices('AAPL', opts)$content$stock_prices_data_frame$adj_close}, silent=T)
+  if(is.null(x)) {
+      return("Incorrect API Key - please input a valid API key as a string")
+  } 
+
+  # create vectors to record the results
+  rcd_buy_price <- c()
+  rcd_sell_price <- c()
+  rcd_rtn <- c()
+      
+  for (x in ticker){
+
+    opts <- list(start_date=buy_date, end_date=buy_date_upper)
+    buy_date <- tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
+    buy_price <- tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
+
+    opts <- list(start_date=sell_date_lower, end_date=sell_date)
+    sell_date <- head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
+    sell_price <- head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
+
+    rnt <- ((sell_price - buy_price) / buy_price) * 100
+
+    rcd_buy_price <- c(rcd_buy_price, round(buy_price, 4))
+    rcd_sell_price <- c(rcd_sell_price, round(sell_price, 4))
+    rcd_rtn <- c(rcd_rtn, round(rnt, 2))
+
+  }
+
+  result <- tibble('Stock' = ticker, 
+          'Buy date' = buy_date, 
+          'Buy price' = rcd_buy_price, 
+          'Sell date' = sell_date, 
+          'Sell price' = rcd_sell_price, 
+          'Return (%)' = rcd_rtn
+        )
+
+  return(result)
+}
