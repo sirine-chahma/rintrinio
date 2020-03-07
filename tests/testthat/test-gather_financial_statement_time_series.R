@@ -34,9 +34,6 @@ test_that("Check valid entries for statement", {
   expect_error(gather_financial_statement_time_series(api_key, ticker, 'cah_flow_statement', year, period))
 })
 
-test_that("Check valid entries for ticker", {
-  expect_error(gather_financial_statement_time_series(api_key, 'CV', statement, year, period))
-})
 
 test_that("Check valid entries for period", {
   expect_error(gather_financial_statement_time_series(api_key, ticker, statement, year, c('Q1','Q5')))
