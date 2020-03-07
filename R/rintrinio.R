@@ -40,6 +40,13 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 
 gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
   
+  statements <-  c('income_statement', 'balance_sheet_statement', 'cash_flow_statement')
+  
+  #Check if the statement is valid
+  if (!(statement %in% statements)){
+    stop('the statement must exist')
+  }
+  
   #check if the api_key is a string
   if (typeof(api_key) != "character"){
     stop("the api_key must be a string")
