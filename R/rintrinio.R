@@ -1,8 +1,8 @@
-# library(tidyverse) # according to slack, it's suggested not to load the whole tidyverse
 library(IntrinioSDK)
 library(dplyr)
 library(tidyr)
 options(warn=-1)
+
 
 # Function that gathers a given financial statement for a company for specificed years and quarters
 
@@ -143,6 +143,14 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 
 gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
 
+  
+  statements <-  c('income_statement', 'balance_sheet_statement', 'cash_flow_statement')
+  
+  #Check if the statement is valid
+  if (!(statement %in% statements)){
+    stop('the statement must exist')
+  }
+  
   #check if the api_key is a string
   if (typeof(api_key) != "character"){
     stop("the api_key must be a string")
@@ -238,8 +246,35 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #'
 #' @examples
 #' gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
-gather_stock_time_series <- function(api_key, ticker, start_date, end_date) {
-  tibble()
+gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='') {
+  
+  # set up options
+  if (start_date != '' & end_date != '') {
+    opts <- list(start_date = as.Date(start_date), end_date = as.Date(end_date), page_size = 10000)
+  }
+  else if (start_date != '') {
+    opts <- list(start_date = as.Date(start_date), page_size = 10000)
+  }
+  else if (end_date != '') {
+    opts <- list(end_date = as.Date(end_date), page_size = 10000)
+  }
+  else {
+    opts <- list(page_size = 10000)
+  }
+  
+  # throw an error if the API Key is Invalid
+  api_error <- try({
+    client <- IntrinioSDK::ApiClient$new()
+    client$configuration$apiKey <- api_key
+    SecurityApi <- IntrinioSDK::SecurityApi$new(client)
+    result <- SecurityApi$get_security_stock_prices(ticker, opts)$content$stock_prices_data_frame
+    
+  }, silent=T)
+  if(is.null(result)) {
+    return("Incorrect API Key - please input a valid API key as a string")
+  }
+  
+  return(result)
 }
 
 
