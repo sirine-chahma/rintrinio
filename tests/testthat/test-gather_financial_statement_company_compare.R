@@ -12,6 +12,11 @@ statement <- "income_statement"
 year <- "2018"
 period <- "Q1"
 
+#Test that it returns an error if the statement is not valid
+test_that("The statement is not valid", {
+  expect_error(gather_financial_statement_company_compare(api_key, ticker, 'a_statement', year, period))
+})
+
 # test that return type is a dataframe
 test_that("The default return type is not a dataframe", {
   expect_equal(typeof(gather_financial_statement_company_compare(api_key, ticker, statement, year, period)), 'list')
