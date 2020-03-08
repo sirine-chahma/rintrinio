@@ -1,3 +1,6 @@
+# Author: Team Andrey Markov
+# rintrinio functions
+
 library(IntrinioSDK)
 library(dplyr)
 library(tidyr)
@@ -7,8 +10,9 @@ library(tidyr)
 #' Given the tickers, statement, year and period returns all the financial information from the Intrinio API stock data 
 #'
 #' @param api_key character (sandbox or production) from Intrinio
-#' @param ticker ticker symbol
+#' @param ticker character ticker symbol
 #' @param statement character that represents the financial statement that you want to study
+#' options: 'income_statement', 'cash_flow_statement', 'balance_sheet_statement'
 #' @param year vector of the years (as characters) you want the information for
 #' @param period vector of the periods (characters) you want the information from
 #'
