@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 # Author: Team Andrey Markov
 # rintrinio functions
 
-=======
-# library(tidyverse) # according to slack, it's suggested not to load the whole tidyverse
->>>>>>> origin/master
 library(IntrinioSDK)
 library(dplyr)
-
 library(tidyr)
 options(warn=-1)
 
@@ -17,26 +12,20 @@ options(warn=-1)
 #' Given the ticker, statement, year(s) and period(s) return the complete available financial information from the Intrinio API stock data
 #'
 #' @param api_key character (sandbox or production) from Intrinio
-#' @param ticker character ticker symbol
+#' @param ticker character the ticker symbol you would like to get information for
 #' @param statement character that represents the financial statement that you want to study
 #' options: 'income_statement', 'cash_flow_statement', 'balance_sheet_statement'
-#' @param year vector of the years (as characters) you want the information for
-#' @param period vector of the periods (characters) you want the information from
 #' @param year character vector of the year(s) you want the information for
 #' @param period character vector of the period(s) you want the information for
 #'
-#' @return a dataframe that contains financial statement about the company(ticker) for the specified time frame
-
-#' @export
+#' @return dataframe containing information about the given statement for the given ticker at the given times
+#' 
 #' @examples
 #' gather_financial_statement_time_series(api_key, 'CVX', 'income_statement', c('2017,'2018'), c('Q1','Q3'))
 
 gather_financial_statement_time_series <- function(api_key, ticker, statement, year, period){
 
-  ## Limited free access on intrino provides only Sandbox access
-
   ## Checks
-
   if (typeof(api_key) != "character"){
     stop("The api_key must be a string")
   }
@@ -64,7 +53,6 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
   }
 
   available_statements <- c('income_statement', 'cash_flow_statement', 'balance_sheet_statement')
-
   `%notin%` <- Negate(`%in%`)
 
   if (statement %notin% c('income_statement', 'cash_flow_statement', 'balance_sheet_statement')) {
@@ -141,14 +129,15 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 #' Given the tickers, statement, year and period returns all the information from the Intrinio API fundamental reported financials
 #'   for that time and those tickers as a dataframe
 #'
-#' @param api_key character (sandbox or production) from Intrinio
-#' @param ticker vector of characters ticker symbols
-#' @param statement character that represents the statement that you want to study
-#' @param year character that represents the year you want the information from
-#' @param period character that represents the period you want the information from
+#' @param api_key character API key (sandbox or production) from Intrinio
+#' @param ticker character vector of the ticker symbols you would like to study
+#' @param statement character the statement that you want to study
+#' options: 'income_statement', 'cash_flow_statement', 'balance_sheet_statement'
+#' @param year character the year you want the information from
+#' @param period character the period you want the information from
 #'
 #' @return a dataframe that contains information about the given statement for the given tickers at the given time
-#' @export
+#' 
 #' @examples
 #' gather_financial_statement_company_compare(api_key, ['AAPL', 'CSCO'], 'income_statement', '2019', 'Q1')
 
@@ -247,13 +236,12 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #' Given the ticker, start date, and end date, return from the Intrinio API stock data
 #' for that time frame in either a dictionary or a pandas dataframe format.
 #'
-#' @param api_key character (sandbox or production) from Intrinio
+#' @param api_key character API key (sandbox or production) from Intrinio
 #' @param ticker character the ticker symbol you would like to get stock data for
-#' @param start_date character optional earliest date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
-#' @param end_date character optional most recent date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
+#' @param start_date character optional the earliest date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
+#' @param end_date character optional the most recent date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
 #'
-#' @return a dataframe that contains stock data for the specific timefram
-#' @export
+#' @return a dataframe that contains stock data for the specified timeframe
 #'
 #' @examples
 #' gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
@@ -292,8 +280,8 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
 
 #' Given the tickers, buy-in date, sell-out date, returns the historical prices and profit/loss
 #'
-#' @param api_key character (sandbox or production) from Intrinio
-#' @param ticker character ticker symbols or a vector of ticker symbols
+#' @param api_key character API key (sandbox or production) from Intrinio
+#' @param ticker character ticker symbols or a vector of ticker symbols 
 #' @param buy_date character the buy-in date in the format of "%Y-%m-%d", e.g. "2019-12-31"
 #' If the input date is not a trading day, it will be automatically changed to the next nearest trading day.
 #' @param sell_date character the sell-out date in the format of "%Y-%m-%d", e.g. "2019-12-31"
@@ -301,7 +289,6 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
 #'
 #' @return a dataframe that contains the companies, historical prices and corresponding
 #' profit/loss
-#' @export
 #'
 #' @examples
 #' gather_stock_returns(api_key, c('AAPL', 'CSCO'), "2017-12-31", "2019-03-01")
