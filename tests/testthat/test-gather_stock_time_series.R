@@ -1,6 +1,6 @@
 # test functions for gather_stock_time_series() function
 
-library(tidyverse)
+library(dplyr)
 library(IntrinioSDK)
 library(testthat)
 
