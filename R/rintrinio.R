@@ -244,25 +244,52 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #' @param ticker character the ticker symbol you would like to get stock data for
 #' @param start_date character optional the earliest date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
 #' @param end_date character optional the most recent date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
+#' @param allow_max_rows boolean optional if False, then only 100 rows will show in the output, otherwise up to 10000 rows will show (based on dates)
 #'
 #' @return a dataframe that contains stock data for the specified timeframe
 #'
 #' @examples
 #' gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
-gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='') {
+gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='', allow_max_rows=FALSE) {
+  
+  # set up allow_max_rows output
+  if (allow_max_rows == FALSE) {
+    rows = 100
+  }
+  else {
+    rows = 10000
+  }
   
   # set up options
   if (start_date != '' & end_date != '') {
-    opts <- list(start_date = as.Date(start_date), end_date = as.Date(end_date), page_size = 10000)
+    t <- try({
+      opts <- list(start_date = as.Date(start_date), end_date = as.Date(end_date), page_size = rows)
+    }, silent=T)
+    if("try-error" %in% class(t)) {
+      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+    }
+    if (start_date >= end_date) {
+      return("Invalid Input: end_date must be later than start_date")
+    }
   }
   else if (start_date != '') {
-    opts <- list(start_date = as.Date(start_date), page_size = 10000)
+    t <- try({
+      opts <- list(start_date = as.Date(start_date), page_size = rows)
+    }, silent=T)
+    if("try-error" %in% class(t)) {
+      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+    }
   }
   else if (end_date != '') {
-    opts <- list(end_date = as.Date(end_date), page_size = 10000)
+    t <- try({
+      opts <- list(end_date = as.Date(end_date), page_size = rows)
+    }, silent=T)
+    if("try-error" %in% class(t)) {
+      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+    }
   }
   else {
-    opts <- list(page_size = 10000)
+    opts <- list(page_size = rows)
   }
   
   # throw an error if the API Key is Invalid
