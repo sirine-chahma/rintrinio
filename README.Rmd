@@ -94,6 +94,7 @@ R version 3.6.1 and R packages:
 - knitr==1.26 [@knitr]
 - tidyverse==1.2.1 [@tidyverse]
 - IntrinioSDK==0.1.0 [@intrinio]
+- testthat==2.3.1 [@testthat]
 
 ## Functions
 

@@ -1,0 +1,50 @@
+---
+title: "rintrinio-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{package_name-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ../refs.bib
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Introduction to rintrinio
+
+The purpose of rintrinio is to take the data from Intrinio [@intrinio] and make it extraordinarily easy to move to a format for analysis in R [@R].
+
+This document introduces you to the functions included in this package.
+
+## Functions
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(IntrinioSDK))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(devtools))
+suppressMessages(load_all())
+
+api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
+```
+
+The four functions in the package are as follows:
+
+- `gather_financial_statement_time_series()` to compare a single company's financial statements over time
+- `gather_financial_statement_company_compare()` to compare multiple company's financial statements in a single period
+- `gather_stock_time_series()` to gather a time series of stock price information
+- `gather_stock_returns()` to gather returns of stocks over time
+
+### Time Series Financial Statement Analysis with `gather_financial_statement_time_series()`
+
+`gather_financial_statement_time_series()` takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for time series analysis of financial statements (income statement, balance sheet, or cash flow statement)
+
+### Cross-Company Financial Statement Analysis with `gather_financial_statement_company_compare()`
+
+### Time Series Stock Analysis with `gather_stock_time_series()`
+
+### Understand Stock Returns with `gather_stock_returns()`
+
+# References
