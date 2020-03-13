@@ -12,8 +12,8 @@ rtn_csco <- 176.01
 
 test_that("Stock returns should be correctly calculated", {
     result <- gather_stock_returns(api_key, ticker, buy_date = buy_date, sell_date = sell_date)
-    expect_equal(result['Return (%)'][[1]][1], rtn_appl)
-    expect_equal(result['Return (%)'][[1]][2], rtn_csco)
+    expect_equal(result['Return....'][[1]][1], rtn_appl)
+    expect_equal(result['Return....'][[1]][2], rtn_csco)
     expect_equal(dim(result)[1], 2)
     expect_equal(dim(result)[2], 6)
 })

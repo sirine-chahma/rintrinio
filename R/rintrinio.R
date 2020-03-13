@@ -379,7 +379,7 @@ gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
 
   }
 
-  result <- tibble('Stock' = ticker,
+  result <- data.frame('Stock' = ticker,
           'Buy date' = buy_date,
           'Buy price' = rcd_buy_price,
           'Sell date' = sell_date,
