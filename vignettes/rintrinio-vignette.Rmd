@@ -24,6 +24,7 @@ This document introduces you to the functions included in this package.
 suppressPackageStartupMessages(library(devtools))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(rintrinio))
 suppressMessages(load_all())
 
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'

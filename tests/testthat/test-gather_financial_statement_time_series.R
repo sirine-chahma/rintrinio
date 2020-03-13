@@ -1,5 +1,5 @@
-library(tidyverse)
-library(IntrinioSDK)
+# test functions for gather_financial_time_series() function
+
 library(testthat)
 
 # Sample data for testing
