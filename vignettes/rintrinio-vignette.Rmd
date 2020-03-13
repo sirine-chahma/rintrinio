@@ -1,0 +1,100 @@
+---
+title: "rintrinio-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{package_name-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ../refs.bib
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Introduction to rintrinio
+
+The purpose of rintrinio is to take the data from Intrinio [@intrinio] and make it extraordinarily easy to move to a format for analysis in R [@R].
+
+This document introduces you to the functions included in this package.
+
+## Functions
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(devtools))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressMessages(load_all())
+
+api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
+```
+
+The four functions in the package are as follows:
+
+- `gather_financial_statement_time_series()` to compare a single company's financial statements over time
+- `gather_financial_statement_company_compare()` to compare multiple company's financial statements in a single period
+- `gather_stock_time_series()` to gather a time series of stock price information
+- `gather_stock_returns()` to gather returns of stocks over time
+
+### Time Series Financial Statement Analysis with `gather_financial_statement_time_series()`
+
+`gather_financial_statement_time_series()` takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for time series analysis of financial statements (income statement, balance sheet, or cash flow statement).
+
+For example, we can compare Apple's 2018 and 2019 Q1 Balance Sheet:
+
+```{r echo=TRUE}
+time_series <- gather_financial_statement_time_series(api_key = api_key, ticker = 'AAPL', 
+                                       statement = 'balance_sheet_statement', 
+                                       year = c("2018", "2019"), period = c('Q1'))
+
+knitr::kable(time_series)
+```
+
+### Cross-Company Financial Statement Analysis with `gather_financial_statement_company_compare()`
+
+`gather_financial_statement_company_compare()` takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for cross-company analysis of financial statements (income statement, balance sheet, or cash flow statement).
+
+For example, we can compare Apple and Cisco's Income Statement results for Q1 of 2019:
+
+```{r}
+company_compare <- gather_financial_statement_company_compare(api_key = api_key, ticker = c("AAPL", "CSCO"), 
+                                           statement = "income_statement", 
+                                           year = "2019", period = "Q1")
+
+knitr::kable(company_compare)
+```
+
+### Time Series Stock Analysis with `gather_stock_time_series()`
+
+`gather_stock_time_series()` is a function for simplifying time series analysis of stock prices of a single company. It takes in the ticker, start and end dates (optional), and an Intrinio API key, and returns a dataframe that can easily be plotted to view trend analysis, or analysed as is.
+
+For example, we can see how Cisco's close price changed over 2019 and model it with ggplot [@ggplot]:
+
+```{r}
+stock_data <- gather_stock_time_series(api_key = api_key, ticker = "CSCO", start_date = "2019-01-01", end_date = "2019-12-31",
+                                       allow_max_rows = TRUE)
+
+ggplot(stock_data, aes(x = date, y = close)) +
+  geom_line() +
+  ggtitle("Cisco Close Prices over 2019") +
+  labs(x = "Time", y = "Close Price")
+```
+
+### Understand Stock Returns with `gather_stock_returns()`
+
+`gather_stock_returns()` allows for a combination of looking at time series stock data and comparing returns across companies. This function allows effortless comparisons of returns across companies given a buy date and a sell date. Historical analysis is important for portfolio evaluations and comparisons.
+
+For example, we can compare Apple and Cisco's returns over Q1 2019:
+
+```{r}
+stock_returns <- gather_stock_returns(api_key = api_key, ticker = c("AAPL", "CSCO"), buy_date = "2019-01-01", 
+                     sell_date = "2019-03-31")
+
+knitr::kable(stock_returns)
+```
+
+## Comparisons
+
+rintrinio does not add any new capabilities to what exists in the tidyverse [@tidyverse] and from Intrinio's API [@intrinio], but each function consolidates at least 10 lines of code into a more readable and user-friendly format.
+
+# References
