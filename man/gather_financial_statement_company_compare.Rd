@@ -33,5 +33,5 @@ Given the tickers, statement, year and period returns all the information from t
   for that time and those tickers as a dataframe
 }
 \examples{
-gather_financial_statement_company_compare(api_key, c('AAPL', 'CSCO'), 'income_statement', '2019', 'Q1')
+gather_financial_statement_company_compare('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', c('AAPL', 'CSCO'), 'income_statement', '2019', 'Q1')
 }

@@ -32,5 +32,5 @@ Given the ticker, start date, and end date, return from the Intrinio API stock d
 for that time frame in either a dictionary or a pandas dataframe format.
 }
 \examples{
-gather_stock_time_series(api_key, 'AAPL', "2017-12-31", "2019-03-01")
+gather_stock_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'AAPL', "2017-12-31", "2019-03-01")
 }
