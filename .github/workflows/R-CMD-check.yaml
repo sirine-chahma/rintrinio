@@ -68,8 +68,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           install.packages("devtools")
-          install.packages("githubinstall")
-          githubinstall("IntrinioSDK")
+          install_github("intrinio/r-sdk")
         shell: Rscript {0}
 
       - name: Check
