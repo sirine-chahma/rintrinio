@@ -128,7 +128,8 @@ R version 3.6.1 and R packages:
   - knitr==1.26 (Xie 2020)
   - tidyverse==1.2.1 (Wickham 2017)
   - IntrinioSDK==0.1.0 (Swagger Codegen community 2020)
-  - testthat==2.3.1 (Wickham 2011)
+  - testthat==2.3.1
+    (<span class="citeproc-not-found" data-reference-id="testthat">**???**</span>)
 
 ## Functions
 
@@ -170,18 +171,10 @@ Intrinio Api*.
 
 </div>
 
-<div id="ref-testthat">
-
-Wickham, Hadley. 2011. “Testthat: Get Started with Testing.” *The R
-Journal* 3: 5–10.
-<https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf>.
-
-</div>
-
 <div id="ref-tidyverse">
 
-———. 2017. *Tidyverse: Easily Install and Load the ’Tidyverse’*.
-<https://CRAN.R-project.org/package=tidyverse>.
+Wickham, Hadley. 2017. *Tidyverse: Easily Install and Load the
+’Tidyverse’*. <https://CRAN.R-project.org/package=tidyverse>.
 
 </div>
 
