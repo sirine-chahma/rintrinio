@@ -19,4 +19,7 @@ URL: https://github.com/sirine-chahma/rintrinio
 BugReports: https://github.com/sirine-chahma/rintrinio/issues
 Imports: 
     dplyr,
-    purrr
+    purrr,
+    tidyr,
+    IntrinioSDK,
+    utils

@@ -1,13 +1,11 @@
 # test functions for gather_stock_time_series() function
 
-library(dplyr)
-library(IntrinioSDK)
 library(testthat)
 
 # helper data
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ticker <- 'AAPL'
-start_date <- '2011-01-01' 
+start_date <- '2011-01-01'
 end_date <- '2019-12-10'
 
 # test that return type is a dataframe
@@ -65,7 +63,7 @@ test_that("allow_max_rows default argument is not working as expected", {
   expect_equal(dim(gather_stock_time_series(api_key, ticker))[1], 100)
 })
 
-# test that you can get more than 100 rows 
+# test that you can get more than 100 rows
 test_that("allow_max_rows default argument is not working as expected", {
   expect_gt(dim(gather_stock_time_series(api_key, ticker, start_date = "2019-01-12", allow_max_rows = TRUE))[1], 100)
 })
