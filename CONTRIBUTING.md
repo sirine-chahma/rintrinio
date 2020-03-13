@@ -57,27 +57,22 @@ Ready to contribute? Here's how to set up `rintrinio` for local development.
 	git clone git@github.com:your_name_here/rintrinio.git
 	```
 
-3. Install your local copy with Poetry, this is how you set up your fork for local development:
+3. Create a branch for local development:
 
 	```
 	cd rintrinio/
-	```
-
-4. Create a branch for local development:
-
-	```
 	git checkout -b name-of-your-bugfix-or-feature
 	```
 
    	Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass the tests by running 
+4. When you're done making changes, check that your changes pass the tests by running 
 
 	```
 	test()
 	```
 
-6. Commit your changes and push your branch to GitHub:
+5. Commit your changes and push your branch to GitHub:
 
 	```
 	git add .
@@ -85,7 +80,7 @@ Ready to contribute? Here's how to set up `rintrinio` for local development.
 	git push origin name-of-your-bugfix-or-feature
 	```
 
-7. Submit a pull request through the GitHub website.
+6. Submit a pull request through the GitHub website.
 
 ## Pull Request Guidelines
 
