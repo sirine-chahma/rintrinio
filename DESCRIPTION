@@ -13,4 +13,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    covr
+URL: https://github.com/sirine-chahma/rintrinio
+BugReports: https://github.com/sirine-chahma/rintrinio/issues
