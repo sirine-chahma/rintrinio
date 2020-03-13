@@ -31,5 +31,6 @@ dataframe containing information about the given statement for the given ticker 
 Given the ticker, statement, year(s) and period(s) return the complete available financial information from the Intrinio API stock data
 }
 \examples{
-gather_financial_statement_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'CVX', 'income_statement', c('2017','2018'), c('Q1','Q3'))
+gather_financial_statement_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1',
+'CVX', 'income_statement', c('2017','2018'), c('Q1','Q3'))
 }

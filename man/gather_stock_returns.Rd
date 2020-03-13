@@ -25,5 +25,6 @@ profit/loss
 Given the tickers, buy-in date, sell-out date, returns the historical prices and profit/loss
 }
 \examples{
-gather_stock_returns('OjhlMjhjNTBmMWJiMWE0MTExYjQwNWZmZTVkZWM1', c('AAPL', 'CSCO'), "2017-12-31", "2019-03-01")
+gather_stock_returns('OjhlMjhjNTBmMWJiMWE0MTExYjQwNWZmZTVkZWM1', c('AAPL', 'CSCO'),
+"2017-12-31", "2019-03-01")
 }

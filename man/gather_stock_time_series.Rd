@@ -18,11 +18,14 @@ gather_stock_time_series(
 
 \item{ticker}{character the ticker symbol you would like to get stock data for}
 
-\item{start_date}{character optional the earliest date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for}
+\item{start_date}{character optional the earliest date in the format of "%Y-%m-%d",
+e.g. "2019-12-31" to get data for}
 
-\item{end_date}{character optional the most recent date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for}
+\item{end_date}{character optional the most recent date in the format of "%Y-%m-%d",
+e.g. "2019-12-31" to get data for}
 
-\item{allow_max_rows}{boolean optional if False, then only 100 rows will show in the output, otherwise up to 10000 rows will show (based on dates)}
+\item{allow_max_rows}{boolean optional if False, then only 100 rows will show in the
+output, otherwise up to 10000 rows will show (based on dates)}
 }
 \value{
 a dataframe that contains stock data for the specified timeframe
@@ -32,5 +35,6 @@ Given the ticker, start date, and end date, return from the Intrinio API stock d
 for that time frame in either a dictionary or a pandas dataframe format.
 }
 \examples{
-gather_stock_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'AAPL', "2017-12-31", "2019-03-01")
+gather_stock_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'AAPL',
+"2017-12-31", "2019-03-01")
 }
