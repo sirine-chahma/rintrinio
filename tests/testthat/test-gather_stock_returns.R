@@ -1,6 +1,5 @@
 # test file for `gather_stock_returns` function
 
-library(rintrinio)
 library(testthat)
 
 # helper data

@@ -1,6 +1,5 @@
 # test functions for gather_financial_time_series() function
 
-library(IntrinioSDK)
 library(testthat)
 
 # Sample data for testing

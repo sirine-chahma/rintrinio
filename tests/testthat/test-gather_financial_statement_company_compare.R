@@ -1,6 +1,5 @@
 # test functions for gather_financial_statement_company_compare() function
 
-library(IntrinioSDK)
 library(testthat)
 
 # helper data
