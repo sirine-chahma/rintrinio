@@ -48,7 +48,9 @@ test_that("The period is not a string", {
   expect_error(gather_financial_statement_company_compare(api_key, ticker, statement, year, 123))
 })
 
+
 # test that the output has 3 columns when we put 2 tickers as the input
 test_that("The output doesn't have 3 columns", {
   expect_equal(ncol(gather_financial_statement_company_compare(api_key, ticker, statement, year, period)), 3)
 })
+
