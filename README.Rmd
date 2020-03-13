@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # rintrinio
 
 <!-- badges: start -->
+[![R build status](https://github.com/UBC-MDS/rintrinio/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rintrinio/actions)
+[![codecov](https://codecov.io/gh/UBC-MDS/rintrinio/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/rintrinio)
 <!-- badges: end -->
 
 R [@R] package converts Intrinio [@intrinio] objects and lists to dataframes.

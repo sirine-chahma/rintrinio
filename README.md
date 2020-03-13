@@ -5,6 +5,9 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/UBC-MDS/rintrinio/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rintrinio/actions)
+[![codecov](https://codecov.io/gh/UBC-MDS/rintrinio/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/rintrinio)
 <!-- badges: end -->
 
 R (R Core Team 2019) package converts Intrinio (Swagger Codegen
