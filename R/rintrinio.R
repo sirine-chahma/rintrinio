@@ -22,7 +22,8 @@ options(warn=-1)
 #' @return dataframe containing information about the given statement for the given ticker at the given times
 #' @export
 #' @examples
-#' gather_financial_statement_time_series(YourKey', 'CVX', 'income_statement', c('2017','2018'), c('Q1','Q3'))
+#' gather_financial_statement_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1',
+#' 'CVX', 'income_statement', c('2017','2018'), c('Q1','Q3'))
 
 gather_financial_statement_time_series <- function(api_key, ticker, statement, year, period){
 
@@ -136,7 +137,8 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 #' @return a dataframe that contains information about the given statement for the given tickers at the given time
 #' @export
 #' @examples
-#' gather_financial_statement_company_compare(YourKey', c('AAPL', 'CSCO'), 'income_statement', '2019', 'Q1')
+#' gather_financial_statement_company_compare('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1',
+#' c('AAPL', 'CSCO'), 'income_statement', '2019', 'Q1')
 
 gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
 
@@ -241,14 +243,18 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #'
 #' @param api_key character API key (sandbox or production) from Intrinio
 #' @param ticker character the ticker symbol you would like to get stock data for
-#' @param start_date character optional the earliest date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
-#' @param end_date character optional the most recent date in the format of "%Y-%m-%d", e.g. "2019-12-31" to get data for
-#' @param allow_max_rows boolean optional if False, then only 100 rows will show in the output, otherwise up to 10000 rows will show (based on dates)
+#' @param start_date character optional the earliest date in the format of "%Y-%m-%d",
+#' e.g. "2019-12-31" to get data for
+#' @param end_date character optional the most recent date in the format of "%Y-%m-%d",
+#' e.g. "2019-12-31" to get data for
+#' @param allow_max_rows boolean optional if False, then only 100 rows will show in the
+#' output, otherwise up to 10000 rows will show (based on dates)
 #'
 #' @return a dataframe that contains stock data for the specified timeframe
 #' @export
 #' @examples
-#' gather_stock_time_series(YourKey', 'AAPL', "2017-12-31", "2019-03-01")
+#' gather_stock_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'AAPL',
+#' "2017-12-31", "2019-03-01")
 gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='', allow_max_rows=FALSE) {
 
   # set up allow_max_rows output
@@ -322,7 +328,8 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
 #' profit/loss
 #' @export
 #' @examples
-#' gather_stock_returns('YourKey', c('AAPL', 'CSCO'), "2017-12-31", "2019-03-01")
+#' gather_stock_returns('OjhlMjhjNTBmMWJiMWE0MTExYjQwNWZmZTVkZWM1', c('AAPL', 'CSCO'),
+#' "2017-12-31", "2019-03-01")
 
 gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
 
