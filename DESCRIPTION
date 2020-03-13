@@ -20,4 +20,6 @@ BugReports: https://github.com/sirine-chahma/rintrinio/issues
 Imports: 
     dplyr,
     purrr,
-    tidyr
+    tidyr,
+    IntrinioSDK,
+    utils

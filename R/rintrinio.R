@@ -364,12 +364,12 @@ gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
   for (x in ticker){
 
     opts <- list(start_date=buy_date, end_date=buy_date_upper)
-    buy_date <- tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
-    buy_price <- tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
+    buy_date <- utils::tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
+    buy_price <- utils::tail(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
 
     opts <- list(start_date=sell_date_lower, end_date=sell_date)
-    sell_date <- head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
-    sell_price <- head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
+    sell_date <- utils::head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$date, 1)
+    sell_price <- utils::head(SecurityApi$get_security_stock_prices(x, opts)$content$stock_prices_data_frame$adj_close, 1)
 
     rnt <- ((sell_price - buy_price) / buy_price) * 100
 

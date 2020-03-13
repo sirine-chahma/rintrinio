@@ -25,8 +25,9 @@ suppressPackageStartupMessages(library(IntrinioSDK))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(devtools))
-suppressMessages(load_all())
+suppressPackageStartupMessages(library(rintrinio))
 
+suppressMessages(load_all())
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
 
@@ -42,6 +43,8 @@ The four functions in the package are as follows:
 `gather_financial_statement_time_series()` takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for time series analysis of financial statements (income statement, balance sheet, or cash flow statement)
 
 ### Cross-Company Financial Statement Analysis with `gather_financial_statement_company_compare()`
+
+
 
 ### Time Series Stock Analysis with `gather_stock_time_series()`
 
