@@ -41,9 +41,10 @@ The four functions in the package are as follows:
 For example, we can compare Apple's 2018 and 2019 Q1 Balance Sheet:
 
 ```{r gather_financial_statement_time_series, echo=TRUE}
-time_series <- gather_financial_statement_time_series(api_key = api_key, ticker = 'AAPL', 
-                                       statement = 'balance_sheet_statement', 
-                                       year = c("2018", "2019"), period = c('Q1'))
+time_series <- gather_financial_statement_time_series(api_key = api_key, 
+                                                      ticker = 'AAPL', 
+                                                      statement = 'balance_sheet_statement', 
+                                                      year = c("2018", "2019"), period = c('Q1'))
 knitr::kable(time_series)
 ```
 
@@ -54,7 +55,10 @@ knitr::kable(time_series)
 For example, we can compare Apple and Cisco's Income Statement results for Q1 of 2019:
 
 ```{r gather_financial_statement_company_compare}
-company_compare <- gather_financial_statement_company_compare(api_key = api_key, ticker = c("AAPL", "CSCO"), statement = "income_statement", year = "2019", period = "Q1")
+company_compare <- gather_financial_statement_company_compare(api_key = api_key,
+                                                              ticker = c("AAPL", "CSCO"), 
+                                                              statement = "income_statement", 
+                                                              year = "2019", period = "Q1")
 knitr::kable(company_compare)
 ```
 
@@ -65,8 +69,14 @@ knitr::kable(company_compare)
 For example, we can see how Cisco's close price changed over 2019 and model it with ggplot:
 
 ```{r gather_stock_time_series}
-stock_data <- gather_stock_time_series(api_key = api_key, ticker = "CSCO", start_date = "2019-01-01", end_date = "2019-12-31", allow_max_rows = TRUE)
-ggplot2::ggplot(data.frame("date" = stock_data[[1]], "close" = stock_data['close']), aes(date, close)) +
+stock_data <- gather_stock_time_series(api_key = api_key, 
+                                       ticker = "CSCO", 
+                                       start_date = "2019-01-01", 
+                                       end_date = "2019-12-31", 
+                                       allow_max_rows = TRUE)
+ggplot2::ggplot(data.frame("date" = stock_data[[1]], 
+                           "close" = stock_data['close']), 
+                aes(date, close)) +
   geom_line() +
   ggtitle("Cisco Close Prices over 2019") +
   labs(x = "Time", y = "Close Price")
@@ -79,13 +89,13 @@ ggplot2::ggplot(data.frame("date" = stock_data[[1]], "close" = stock_data['close
 For example, we can compare Apple and Cisco's returns over Q1 2019:
 
 ```{r gather_stock_returns}
-stock_returns <- gather_stock_returns(api_key = api_key, ticker = c("AAPL", "CSCO"), buy_date = "2019-01-01", 
-                     sell_date = "2019-03-31")
+stock_returns <- gather_stock_returns(api_key = api_key, 
+                                      ticker = c("AAPL", "CSCO"), 
+                                      buy_date = "2019-01-01", 
+                                      sell_date = "2019-03-31")
 knitr::kable(stock_returns)
 ```
 
 ## Comparisons
 
 rintrinio does not add any new capabilities to what exists in the tidyverse and from Intrinio's API, but each function consolidates at least 10 lines of code into a more readable and user-friendly format.
-
-# References
