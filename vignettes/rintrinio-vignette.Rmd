@@ -71,10 +71,6 @@ For example, we can see how Cisco's close price changed over 2019 and model it w
 ```{r gather_stock_time_series}
 stock_data <- gather_stock_time_series(api_key = api_key, ticker = "CSCO", start_date = "2019-01-01", end_date = "2019-12-31", allow_max_rows = TRUE)
 
-ggplot2::ggplot(as.data.frame(stock_data), aes(date, close)) +
-  geom_line() +
-  ggtitle("Cisco Close Prices over 2019") +
-  labs(x = "Time", y = "Close Price")
 
 ```
 
