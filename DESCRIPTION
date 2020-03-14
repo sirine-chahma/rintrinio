@@ -1,5 +1,5 @@
 Package: rintrinio
-Title: R package that draws needed data from intrinio API objects.
+Title: R package that draws needed data from intrinio API objects
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Roc",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "roc_zhang@hotmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: R package that draws needed data from intrinio API objects. On this package we focused on 3 different obejcts.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -15,11 +15,16 @@ RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0),
     covr
-URL: https://github.com/sirine-chahma/rintrinio
-BugReports: https://github.com/sirine-chahma/rintrinio/issues
+URL: https://github.com/UBC-MDS/rintrinio
+BugReports: https://github.com/UBC-MDS/rintrinio/issues
 Imports: 
     dplyr,
     purrr,
     tidyr,
     IntrinioSDK,
-    utils
+    utils,
+    knitr,
+    rmarkdown,
+    ggplot2,
+    devtools
+VignetteBuilder: knitr

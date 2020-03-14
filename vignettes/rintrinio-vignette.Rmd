@@ -5,7 +5,6 @@ vignette: >
   %\VignetteIndexEntry{package_name-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-bibliography: ../refs.bib
 ---
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -15,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # Introduction to rintrinio
 
-The purpose of rintrinio is to take the data from Intrinio [@intrinio] and make it extraordinarily easy to move to a format for analysis in R [@R].
+The purpose of rintrinio is to take the data from Intrinio and make it extraordinarily easy to move to a format for analysis in R.
 
 This document introduces you to the functions included in this package.
 
@@ -58,9 +57,7 @@ knitr::kable(time_series)
 For example, we can compare Apple and Cisco's Income Statement results for Q1 of 2019:
 
 ```{r gather_financial_statement_company_compare}
-company_compare <- gather_financial_statement_company_compare(api_key = api_key, ticker = c("AAPL", "CSCO"), 
-                                           statement = "income_statement", 
-                                           year = "2019", period = "Q1")
+company_compare <- gather_financial_statement_company_compare(api_key = api_key, ticker = c("AAPL", "CSCO"), statement = "income_statement", year = "2019", period = "Q1")
 
 knitr::kable(company_compare)
 ```
@@ -69,13 +66,12 @@ knitr::kable(company_compare)
 
 `gather_stock_time_series()` is a function for simplifying time series analysis of stock prices of a single company. It takes in the ticker, start and end dates (optional), and an Intrinio API key, and returns a dataframe that can easily be plotted to view trend analysis, or analysed as is.
 
-For example, we can see how Cisco's close price changed over 2019 and model it with ggplot [@ggplot]:
+For example, we can see how Cisco's close price changed over 2019 and model it with ggplot:
 
 ```{r gather_stock_time_series}
-stock_data <- gather_stock_time_series(api_key = api_key, ticker = "CSCO", start_date = "2019-01-01", end_date = "2019-12-31",
-                                       allow_max_rows = TRUE)
+stock_data <- gather_stock_time_series(api_key = api_key, ticker = "CSCO", start_date = "2019-01-01", end_date = "2019-12-31", allow_max_rows = TRUE)
 
-ggplot(stock_data, aes(x = date, y = close)) +
+ggplot2::ggplot(data.frame("date" = stock_data[[1]], "close" = stock_data['close']), aes(date, close)) +
   geom_line() +
   ggtitle("Cisco Close Prices over 2019") +
   labs(x = "Time", y = "Close Price")
@@ -96,6 +92,6 @@ knitr::kable(stock_returns)
 
 ## Comparisons
 
-rintrinio does not add any new capabilities to what exists in the tidyverse [@tidyverse] and from Intrinio's API [@intrinio], but each function consolidates at least 10 lines of code into a more readable and user-friendly format.
+rintrinio does not add any new capabilities to what exists in the tidyverse and from Intrinio's API, but each function consolidates at least 10 lines of code into a more readable and user-friendly format.
 
 # References
