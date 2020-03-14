@@ -1,10 +1,9 @@
 ---
-title: "rintrinio"
-author: "Team Andrey Markov"
+title: "rintrinio-vignette"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{rintrinio-vignette}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{package_name-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 ```{r, include = FALSE}
@@ -25,7 +24,6 @@ suppressPackageStartupMessages(library(devtools))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
 suppressMessages(load_all())
-
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
 
@@ -46,7 +44,6 @@ For example, we can compare Apple's 2018 and 2019 Q1 Balance Sheet:
 time_series <- gather_financial_statement_time_series(api_key = api_key, ticker = 'AAPL', 
                                        statement = 'balance_sheet_statement', 
                                        year = c("2018", "2019"), period = c('Q1'))
-
 knitr::kable(time_series)
 ```
 
@@ -58,7 +55,6 @@ For example, we can compare Apple and Cisco's Income Statement results for Q1 of
 
 ```{r gather_financial_statement_company_compare}
 company_compare <- gather_financial_statement_company_compare(api_key = api_key, ticker = c("AAPL", "CSCO"), statement = "income_statement", year = "2019", period = "Q1")
-
 knitr::kable(company_compare)
 ```
 
@@ -70,7 +66,6 @@ For example, we can see how Cisco's close price changed over 2019 and model it w
 
 ```{r gather_stock_time_series}
 stock_data <- gather_stock_time_series(api_key = api_key, ticker = "CSCO", start_date = "2019-01-01", end_date = "2019-12-31", allow_max_rows = TRUE)
-
 ggplot2::ggplot(data.frame("date" = stock_data[[1]], "close" = stock_data['close']), aes(date, close)) +
   geom_line() +
   ggtitle("Cisco Close Prices over 2019") +
@@ -86,7 +81,6 @@ For example, we can compare Apple and Cisco's returns over Q1 2019:
 ```{r gather_stock_returns}
 stock_returns <- gather_stock_returns(api_key = api_key, ticker = c("AAPL", "CSCO"), buy_date = "2019-01-01", 
                      sell_date = "2019-03-31")
-
 knitr::kable(stock_returns)
 ```
 
