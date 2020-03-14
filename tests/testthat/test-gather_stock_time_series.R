@@ -63,11 +63,6 @@ test_that("allow_max_rows default argument is not working as expected", {
   expect_equal(dim(gather_stock_time_series(api_key, ticker))[1], 100)
 })
 
-# test that you can get more than 100 rows
-test_that("allow_max_rows default argument is not working as expected", {
-  expect_gt(dim(gather_stock_time_series(api_key, ticker, start_date = "2019-01-12", allow_max_rows = TRUE))[1], 100)
-})
-
 # test that you get valid output values
 test_that("Output shape without any dates is not valid", {
   expect_equal(gather_stock_time_series(api_key, ticker, start_date = "2020-02-15", end_date = "2020-02-23")$open[1], 318.62)
