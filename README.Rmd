@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
 # rintrinio
 
@@ -36,17 +37,11 @@ R is an object-oriented programming language, which has allowed contributors of 
 
 ## Installation
 
-You can install the released version of rintrinio from [CRAN](https://CRAN.R-project.org) with:
+You can install the current version of rintrinio from github with:
 
 ``` r
-install.packages("rintrinio")
-```
-
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("Zhang-Haipeng/rintrinio")
+library(devtools)
+devtools::install_github("UBC-MDS/rintrinio")
 ```
 
 ## Coverage
@@ -73,7 +68,7 @@ If you are using a free version of Intrinio for educational purposes, please not
 Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r).
 
 In an R console, install `devtools` if it is not already installed:
-``` r
+```r
 if(!require(devtools)) { install.packages("devtools") }
 ```
 
@@ -83,18 +78,54 @@ git clone https://github.com/intrinio/r-sdk.git
 ```
 
 Set your working directory to where you cloned the Intrinio R SDK Github Repository and install the `IntrinioSDK` package via the R console:
-``` r
+```r
 library(devtools)
 install(".")
 ```
 
 #### Program and Package Dependencies
+
 R version 3.6.1 and R packages:
 
 - knitr==1.26 [@knitr]
 - tidyverse==1.2.1 [@tidyverse]
 - IntrinioSDK==0.1.0 [@intrinio]
 - testthat==2.3.1 [@testthat]
+
+### Usage
+```{r}
+library(rintrinio)
+library(dplyr)
+
+# Gather Financial Statement Time Series Function
+gather_financial_statement_time_series(api_key = api_key, 
+                                       ticker = 'AAPL', 
+                                       statement = 'balance_sheet_statement', 
+                                       year = c("2018", "2019"),
+                                       period = c('Q1')) %>% 
+  filter(type == "year" | type == "cashandequivalents")
+
+# Gather Financial Statement Cross-Company Comparison Function
+gather_financial_statement_company_compare(api_key = api_key, 
+                                           ticker = c("AAPL", "CSCO"), 
+                                           statement = "income_statement", 
+                                           year = "2019", 
+                                           period = "Q1") %>% 
+  filter(name == "ticker" | name == "sgaexpense")
+
+# Gather Stock Price Time Series Function
+gather_stock_time_series(api_key = api_key,
+                         ticker = "CSCO",
+                         start_date = "2020-02-01",
+                         end_date = "2020-02-05") %>% 
+  select(date, low, high)
+
+# Gather Stock Returns Function
+gather_stock_returns(api_key = api_key,
+                     ticker = c("AAPL", "CSCO"),
+                     buy_date = "2019-01-01",
+                     sell_date = "2020-01-01")
+```
 
 ## Functions
 
