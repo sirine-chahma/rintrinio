@@ -53,18 +53,11 @@ that will make this data ready for the end user to use.
 
 ## Installation
 
-You can install the released version of rintrinio from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the current version of rintrinio from github with:
 
 ``` r
-install.packages("rintrinio")
-```
-
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("Zhang-Haipeng/rintrinio")
+library(devtools)
+devtools::install_github("UBC-MDS/rintrinio")
 ```
 
 ## Coverage
@@ -128,8 +121,68 @@ R version 3.6.1 and R packages:
   - knitr==1.26 (Xie 2020)
   - tidyverse==1.2.1 (Wickham 2017)
   - IntrinioSDK==0.1.0 (Swagger Codegen community 2020)
-  - testthat==2.3.1
-    (<span class="citeproc-not-found" data-reference-id="testthat">**???**</span>)
+  - testthat==2.3.1 (Wickham 2011)
+
+### Usage
+
+``` r
+library(rintrinio)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+# Gather Financial Statement Time Series Function
+gather_financial_statement_time_series(api_key = api_key, 
+                                       ticker = 'AAPL', 
+                                       statement = 'balance_sheet_statement', 
+                                       year = c("2018", "2019"),
+                                       period = c('Q1')) %>% 
+  filter(type == "year" | type == "cashandequivalents")
+#> Warning: Column `type` joining factors with different levels, coercing to
+#> character vector
+#>                 type  fin_value fin_value.
+#> 1               year       2018       2019
+#> 2 cashandequivalents 2.7491e+10 4.4771e+10
+
+# Gather Financial Statement Cross-Company Comparison Function
+gather_financial_statement_company_compare(api_key = api_key, 
+                                           ticker = c("AAPL", "CSCO"), 
+                                           statement = "income_statement", 
+                                           year = "2019", 
+                                           period = "Q1") %>% 
+  filter(name == "ticker" | name == "sgaexpense")
+#> Warning: Column `name` joining factors with different levels, coercing to
+#> character vector
+#>         name   value.x  value.y
+#> 1     ticker      AAPL     CSCO
+#> 2 sgaexpense 4.783e+09 2.11e+08
+
+# Gather Stock Price Time Series Function
+gather_stock_time_series(api_key = api_key,
+                         ticker = "CSCO",
+                         start_date = "2020-02-01",
+                         end_date = "2020-02-05") %>% 
+  select(date, low, high)
+#>         date   low    high
+#> 1 2020-02-05 48.15 48.6000
+#> 2 2020-02-04 47.11 47.7074
+#> 3 2020-02-03 46.21 46.8250
+
+# Gather Stock Returns Function
+gather_stock_returns(api_key = api_key,
+                     ticker = c("AAPL", "CSCO"),
+                     buy_date = "2019-01-01",
+                     sell_date = "2020-01-01")
+#>   Stock   Buy.date Buy.price  Sell.date Sell.price Return....
+#> 1  AAPL 2019-01-02  155.2140 2019-12-31   292.9547      88.74
+#> 2  CSCO 2019-01-02   41.4651 2019-12-31    47.6100      14.82
+```
 
 ## Functions
 
@@ -154,7 +207,7 @@ R version 3.6.1 and R packages:
 
 # References
 
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-R">
 
@@ -171,10 +224,18 @@ Intrinio Api*.
 
 </div>
 
+<div id="ref-testthat">
+
+Wickham, Hadley. 2011. “Testthat: Get Started with Testing.” *The R
+Journal* 3: 5–10.
+<https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf>.
+
+</div>
+
 <div id="ref-tidyverse">
 
-Wickham, Hadley. 2017. *Tidyverse: Easily Install and Load the
-’Tidyverse’*. <https://CRAN.R-project.org/package=tidyverse>.
+———. 2017. *Tidyverse: Easily Install and Load the ’Tidyverse’*.
+<https://CRAN.R-project.org/package=tidyverse>.
 
 </div>
 
