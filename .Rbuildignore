@@ -3,3 +3,8 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^\.github$
+^CONDUCT.md$
+^CONTRIBUTING\.md$
+^CONTRIBUTORS\.md$
+^docs
+^refs\.bib$
