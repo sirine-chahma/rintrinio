@@ -1,9 +1,10 @@
 ---
-title: "rintrinio-vignette"
+title: "rintrinio"
+author: "Team Andrey Markov"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{package_name-vignette}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{rintrinio-vignette}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 ```{r, include = FALSE}
@@ -23,7 +24,6 @@ This document introduces you to the functions included in this package.
 suppressPackageStartupMessages(library(devtools))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(rintrinio))
 suppressMessages(load_all())
 
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
