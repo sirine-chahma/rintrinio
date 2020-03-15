@@ -92,7 +92,7 @@
 <div id="introduction-to-rintrinio" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction-to-rintrinio" class="anchor"></a>Introduction to rintrinio</h1>
-<p>The purpose of rintrinio is to take the data from Intrinio <span class="citation">(Swagger Codegen community 2020)</span> and make it extraordinarily easy to move to a format for analysis in R <span class="citation">(R Core Team 2019)</span>.</p>
+<p>The purpose of rintrinio is to take the data from Intrinio and make it extraordinarily easy to move to a format for analysis in R.</p>
 <p>This document introduces you to the functions included in this package.</p>
 <div id="functions" class="section level2">
 <h2 class="hasAnchor">
@@ -100,24 +100,24 @@
 <p>The four functions in the package are as follows:</p>
 <ul>
 <li>
-<code><a href="../reference/gather_financial_statement_time_series.html">gather_financial_statement_time_series()</a></code> to compare a single company’s financial statements over time</li>
+<code>gather_financial_statement_time_series()</code> to compare a single company’s financial statements over time</li>
 <li>
-<code><a href="../reference/gather_financial_statement_company_compare.html">gather_financial_statement_company_compare()</a></code> to compare multiple company’s financial statements in a single period</li>
+<code>gather_financial_statement_company_compare()</code> to compare multiple company’s financial statements in a single period</li>
 <li>
-<code><a href="../reference/gather_stock_time_series.html">gather_stock_time_series()</a></code> to gather a time series of stock price information</li>
+<code>gather_stock_time_series()</code> to gather a time series of stock price information</li>
 <li>
-<code><a href="../reference/gather_stock_returns.html">gather_stock_returns()</a></code> to gather returns of stocks over time</li>
+<code>gather_stock_returns()</code> to gather returns of stocks over time</li>
 </ul>
 <div id="time-series-financial-statement-analysis-with-gather_financial_statement_time_series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#time-series-financial-statement-analysis-with-gather_financial_statement_time_series" class="anchor"></a>Time Series Financial Statement Analysis with <code>gather_financial_statement_time_series()</code>
 </h3>
-<p><code><a href="../reference/gather_financial_statement_time_series.html">gather_financial_statement_time_series()</a></code> takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for time series analysis of financial statements (income statement, balance sheet, or cash flow statement).</p>
+<p><code>gather_financial_statement_time_series()</code> takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for time series analysis of financial statements (income statement, balance sheet, or cash flow statement).</p>
 <p>For example, we can compare Apple’s 2018 and 2019 Q1 Balance Sheet:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">time_series &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gather_financial_statement_time_series.html">gather_financial_statement_time_series</a></span>(<span class="dt">api_key =</span> api_key, <span class="dt">ticker =</span> <span class="st">'AAPL'</span>, </a>
-<a class="sourceLine" id="cb1-2" title="2">                                       <span class="dt">statement =</span> <span class="st">'balance_sheet_statement'</span>, </a>
-<a class="sourceLine" id="cb1-3" title="3">                                       <span class="dt">year =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2018"</span>, <span class="st">"2019"</span>), <span class="dt">period =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Q1'</span>))</a>
-<a class="sourceLine" id="cb1-4" title="4"></a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">time_series &lt;-<span class="st"> </span><span class="kw">gather_financial_statement_time_series</span>(<span class="dt">api_key =</span> api_key, </a>
+<a class="sourceLine" id="cb1-2" title="2">                                                      <span class="dt">ticker =</span> <span class="st">'AAPL'</span>, </a>
+<a class="sourceLine" id="cb1-3" title="3">                                                      <span class="dt">statement =</span> <span class="st">'balance_sheet_statement'</span>, </a>
+<a class="sourceLine" id="cb1-4" title="4">                                                      <span class="dt">year =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2018"</span>, <span class="st">"2019"</span>), <span class="dt">period =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Q1'</span>))</a>
 <a class="sourceLine" id="cb1-5" title="5">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(time_series)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -318,12 +318,12 @@
 <h3 class="hasAnchor">
 <a href="#cross-company-financial-statement-analysis-with-gather_financial_statement_company_compare" class="anchor"></a>Cross-Company Financial Statement Analysis with <code>gather_financial_statement_company_compare()</code>
 </h3>
-<p><code><a href="../reference/gather_financial_statement_company_compare.html">gather_financial_statement_company_compare()</a></code> takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for cross-company analysis of financial statements (income statement, balance sheet, or cash flow statement).</p>
+<p><code>gather_financial_statement_company_compare()</code> takes in information that would be spread across multiple lines when querying the Intrinio API directly, and puts it into a function that by default returns a dataframe that is ready to be used for analysis. This function should be used for cross-company analysis of financial statements (income statement, balance sheet, or cash flow statement).</p>
 <p>For example, we can compare Apple and Cisco’s Income Statement results for Q1 of 2019:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">company_compare &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gather_financial_statement_company_compare.html">gather_financial_statement_company_compare</a></span>(<span class="dt">api_key =</span> api_key, <span class="dt">ticker =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"AAPL"</span>, <span class="st">"CSCO"</span>), </a>
-<a class="sourceLine" id="cb2-2" title="2">                                           <span class="dt">statement =</span> <span class="st">"income_statement"</span>, </a>
-<a class="sourceLine" id="cb2-3" title="3">                                           <span class="dt">year =</span> <span class="st">"2019"</span>, <span class="dt">period =</span> <span class="st">"Q1"</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4"></a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">company_compare &lt;-<span class="st"> </span><span class="kw">gather_financial_statement_company_compare</span>(<span class="dt">api_key =</span> api_key,</a>
+<a class="sourceLine" id="cb2-2" title="2">                                                              <span class="dt">ticker =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"AAPL"</span>, <span class="st">"CSCO"</span>), </a>
+<a class="sourceLine" id="cb2-3" title="3">                                                              <span class="dt">statement =</span> <span class="st">"income_statement"</span>, </a>
+<a class="sourceLine" id="cb2-4" title="4">                                                              <span class="dt">year =</span> <span class="st">"2019"</span>, <span class="dt">period =</span> <span class="st">"Q1"</span>)</a>
 <a class="sourceLine" id="cb2-5" title="5">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(company_compare)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -499,26 +499,32 @@
 <h3 class="hasAnchor">
 <a href="#time-series-stock-analysis-with-gather_stock_time_series" class="anchor"></a>Time Series Stock Analysis with <code>gather_stock_time_series()</code>
 </h3>
-<p><code><a href="../reference/gather_stock_time_series.html">gather_stock_time_series()</a></code> is a function for simplifying time series analysis of stock prices of a single company. It takes in the ticker, start and end dates (optional), and an Intrinio API key, and returns a dataframe that can easily be plotted to view trend analysis, or analysed as is.</p>
-<p>For example, we can see how Cisco’s close price changed over 2019 and model it with ggplot <span class="citation">(Wickham 2016)</span>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">stock_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gather_stock_time_series.html">gather_stock_time_series</a></span>(<span class="dt">api_key =</span> api_key, <span class="dt">ticker =</span> <span class="st">"CSCO"</span>, <span class="dt">start_date =</span> <span class="st">"2019-01-01"</span>, <span class="dt">end_date =</span> <span class="st">"2019-12-31"</span>,</a>
-<a class="sourceLine" id="cb3-2" title="2">                                       <span class="dt">allow_max_rows =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(stock_data), <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> close)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">"Cisco Close Prices over 2019"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Time"</span>, <span class="dt">y =</span> <span class="st">"Close Price"</span>)</a></code></pre></div>
+<p><code>gather_stock_time_series()</code> is a function for simplifying time series analysis of stock prices of a single company. It takes in the ticker, start and end dates (optional), and an Intrinio API key, and returns a dataframe that can easily be plotted to view trend analysis, or analysed as is.</p>
+<p>For example, we can see how Cisco’s close price changed over 2019 and model it with ggplot:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">stock_data &lt;-<span class="st"> </span><span class="kw">gather_stock_time_series</span>(<span class="dt">api_key =</span> api_key, </a>
+<a class="sourceLine" id="cb3-2" title="2">                                       <span class="dt">ticker =</span> <span class="st">"CSCO"</span>, </a>
+<a class="sourceLine" id="cb3-3" title="3">                                       <span class="dt">start_date =</span> <span class="st">"2019-01-01"</span>, </a>
+<a class="sourceLine" id="cb3-4" title="4">                                       <span class="dt">end_date =</span> <span class="st">"2019-12-31"</span>, </a>
+<a class="sourceLine" id="cb3-5" title="5">                                       <span class="dt">allow_max_rows =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-6" title="6">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="st">"date"</span> =<span class="st"> </span>stock_data[[<span class="dv">1</span>]], </a>
+<a class="sourceLine" id="cb3-7" title="7">                           <span class="st">"close"</span> =<span class="st"> </span>stock_data[<span class="st">'close'</span>]), </a>
+<a class="sourceLine" id="cb3-8" title="8">                <span class="kw">aes</span>(date, close)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">"Cisco Close Prices over 2019"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"Time"</span>, <span class="dt">y =</span> <span class="st">"Close Price"</span>)</a></code></pre></div>
 <p><img src="rintrinio-vignette_files/figure-html/gather_stock_time_series-1.png" width="700"></p>
 </div>
 <div id="understand-stock-returns-with-gather_stock_returns" class="section level3">
 <h3 class="hasAnchor">
 <a href="#understand-stock-returns-with-gather_stock_returns" class="anchor"></a>Understand Stock Returns with <code>gather_stock_returns()</code>
 </h3>
-<p><code><a href="../reference/gather_stock_returns.html">gather_stock_returns()</a></code> allows for a combination of looking at time series stock data and comparing returns across companies. This function allows effortless comparisons of returns across companies given a buy date and a sell date. Historical analysis is important for portfolio evaluations and comparisons.</p>
+<p><code>gather_stock_returns()</code> allows for a combination of looking at time series stock data and comparing returns across companies. This function allows effortless comparisons of returns across companies given a buy date and a sell date. Historical analysis is important for portfolio evaluations and comparisons.</p>
 <p>For example, we can compare Apple and Cisco’s returns over Q1 2019:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">stock_returns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gather_stock_returns.html">gather_stock_returns</a></span>(<span class="dt">api_key =</span> api_key, <span class="dt">ticker =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"AAPL"</span>, <span class="st">"CSCO"</span>), <span class="dt">buy_date =</span> <span class="st">"2019-01-01"</span>, </a>
-<a class="sourceLine" id="cb4-2" title="2">                     <span class="dt">sell_date =</span> <span class="st">"2019-03-31"</span>)</a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(stock_returns)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">stock_returns &lt;-<span class="st"> </span><span class="kw">gather_stock_returns</span>(<span class="dt">api_key =</span> api_key, </a>
+<a class="sourceLine" id="cb4-2" title="2">                                      <span class="dt">ticker =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"AAPL"</span>, <span class="st">"CSCO"</span>), </a>
+<a class="sourceLine" id="cb4-3" title="3">                                      <span class="dt">buy_date =</span> <span class="st">"2019-01-01"</span>, </a>
+<a class="sourceLine" id="cb4-4" title="4">                                      <span class="dt">sell_date =</span> <span class="st">"2019-03-31"</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(stock_returns)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Stock</th>
@@ -552,25 +558,7 @@
 <div id="comparisons" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparisons" class="anchor"></a>Comparisons</h2>
-<p>rintrinio does not add any new capabilities to what exists in the tidyverse <span class="citation">(Wickham 2017)</span> and from Intrinio’s API <span class="citation">(Swagger Codegen community 2020)</span>, but each function consolidates at least 10 lines of code into a more readable and user-friendly format.</p>
-</div>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references">
-<div id="ref-R">
-<p>R Core Team. 2019. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div id="ref-intrinio">
-<p>Swagger Codegen community. 2020. <em>IntrinioSDK: R Package Client for Intrinio Api</em>.</p>
-</div>
-<div id="ref-ggplot">
-<p>Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.</p>
-</div>
-<div id="ref-tidyverse">
-<p>———. 2017. <em>Tidyverse: Easily Install and Load the ’Tidyverse’</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.</p>
-</div>
+<p>rintrinio does not add any new capabilities to what exists in the tidyverse and from Intrinio’s API, but each function consolidates at least 10 lines of code into a more readable and user-friendly format.</p>
 </div>
 </div>
   </div>
@@ -587,7 +575,6 @@
       <li><a href="#comparisons">Comparisons</a></li>
       </ul>
 </li>
-      <li><a href="#references">References</a></li>
       </ul>
 </div>
       </div>
