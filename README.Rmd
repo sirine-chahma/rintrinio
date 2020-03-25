@@ -94,6 +94,15 @@ R version 3.6.1 and R packages:
 - IntrinioSDK==0.1.0 [@intrinio]
 - testthat==2.3.1 [@testthat]
 
+
+## Functions
+
+1. **gather_financial_statement_time_series()**: This function takes in a single stock ticker symbol, the statement, the year, and a vector of various periods to compare. It returns a data frame of the information in the selected statement, for a time-series analysis of the company specified.
+2. **gather_financial_statement_company_compare()**: This function takes in a vector containing the tickers of the companies we want to compare, the statement we want to focus on, and the year and the period of the year we want to study. It returns a dataframe of the information in the selected statement, for the selected companies at the wanted time.
+3. **gather_stock_time_series()**: This function takes in a single stock ticker symbol and returns historical stock price data from a timeframe, returned as a dataframe.
+4. **gather_stock_returns()**: This function takes in multiple stock ticker symbols, buy-in date, sell-out date and returns a dataframe containing the historical prices at buy-in and sell-out date as well as the corresponding returns (profit/loss).
+
+
 ### Usage
 ```{r}
 library(rintrinio)
@@ -129,11 +138,5 @@ gather_stock_returns(api_key = api_key,
                      sell_date = "2020-01-01")
 ```
 
-## Functions
-
-1. **gather_financial_statement_time_series()**: This function takes in a single stock ticker symbol, the statement, the year, and a vector of various periods to compare. It returns a data frame of the information in the selected statement, for a time-series analysis of the company specified.
-2. **gather_financial_statement_company_compare()**: This function takes in a vector containing the tickers of the companies we want to compare, the statement we want to focus on, and the year and the period of the year we want to study. It returns a dataframe of the information in the selected statement, for the selected companies at the wanted time.
-3. **gather_stock_time_series()**: This function takes in a single stock ticker symbol and returns historical stock price data from a timeframe, returned as a dataframe.
-4. **gather_stock_returns()**: This function takes in multiple stock ticker symbols, buy-in date, sell-out date and returns a dataframe containing the historical prices at buy-in and sell-out date as well as the corresponding returns (profit/loss).
 
 # References
