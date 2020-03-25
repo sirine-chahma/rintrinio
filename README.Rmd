@@ -64,6 +64,8 @@ Before using any functions included in this package, you must sign up for an app
 
 If you are using a free version of Intrinio for educational purposes, please note that you will only have access to the [Developer Sandbox](https://product.intrinio.com/developer-sandbox) so use that API key in functions.
 
+Note that the API key must be of type `charactere` when it is used in our functions. Hence, don't forget to use quotation marks when you use your API key.
+
 #### Installing Intrinio R SDK
 Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r).
 
