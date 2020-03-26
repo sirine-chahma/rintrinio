@@ -29,6 +29,8 @@ api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 
 R [@R] package converts Intrinio [@intrinio] objects and lists to dataframes.
 
+The vignette can be found [here](https://ubc-mds.github.io/rintrinio/).
+
 ## The Project
 
 This project has been created as part of [UBC's Master of Data Science Program](https://masterdatascience.ubc.ca/). Information about the contributors can be found [here](CONTRIBUTORS.md). The Code of Conduct can be found [here](CONDUCT.md). The collaboration expectations regarding use of Github Flow can be found [here](CONTRIBUTING.md).
