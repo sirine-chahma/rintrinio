@@ -120,7 +120,7 @@ gather_financial_statement_time_series(api_key = api_key,
 gather_financial_statement_company_compare(api_key = api_key, 
                                            ticker = c("AAPL", "CSCO"), 
                                            statement = "income_statement", 
-                                           year = "2019", 
+                                           year = "2018", 
                                            period = "Q1") %>% 
   filter(name == "ticker" | name == "sgaexpense")
 
