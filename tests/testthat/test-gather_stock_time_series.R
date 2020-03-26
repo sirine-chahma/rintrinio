@@ -16,31 +16,31 @@ test_that("The default return type is not a dataframe", {
 # test that you get an error when you put in an incorrect API key
 test_that("API Error is not working as expected", {
   msg <- "Invalid API Key: please input a valid API key as a string"
-  expect_equal(gather_stock_time_series("not an API Key!!!!", ticker), msg)
+  expect_error(gather_stock_time_series("not an API Key!!!!", ticker), msg)
 })
 
 # test that you get an error when you put in an invalid date format for start_date
 test_that("Date format error is not working as expected", {
   msg <- "Invalid Date format: date must be a string in the format %Y-%m-%d"
-  expect_equal(gather_stock_time_series(api_key, ticker, start_date = "2"), msg)
+  expect_error(gather_stock_time_series(api_key, ticker, start_date = "2"), msg)
 })
 
 # test that you get an error when you put in an invalid date format for end_date
 test_that("Date format error is not working as expected", {
   msg <- "Invalid Date format: date must be a string in the format %Y-%m-%d"
-  expect_equal(gather_stock_time_series(api_key, ticker, end_date = "2"), msg)
+  expect_error(gather_stock_time_series(api_key, ticker, end_date = "2"), msg)
 })
 
 # test that you get an error when you put in an invalid date format for start_date and end_date
 test_that("Date format error is not working as expected", {
   msg <- "Invalid Date format: date must be a string in the format %Y-%m-%d"
-  expect_equal(gather_stock_time_series(api_key, ticker, start_date = "2", end_date = 123), msg)
+  expect_error(gather_stock_time_series(api_key, ticker, start_date = "2", end_date = 123), msg)
 })
 
 # test that you get an error when your end date is before your start date
 test_that("Date order error is not working as expected", {
   msg <- "Invalid Input: end_date must be later than start_date"
-  expect_equal(gather_stock_time_series(api_key, ticker, start_date = "2020-01-30", end_date = "2020-01-01"), msg)
+  expect_error(gather_stock_time_series(api_key, ticker, start_date = "2020-01-30", end_date = "2020-01-01"), msg)
 })
 
 # test that you get a valid output shape when you put in no start date

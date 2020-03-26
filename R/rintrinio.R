@@ -83,7 +83,7 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
         fundamentals <- FundamentalsApi$get_fundamental_standardized_financials(key)
       }, silent=T)
       if (is.null(fundamentals)) {
-        return("Invalid API Key: please input a valid API key as a string")
+        stop("Invalid API Key: please input a valid API key as a string")
       }
       fundamentals <- FundamentalsApi$get_fundamental_standardized_financials(key)
 
@@ -196,7 +196,7 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
       response <- FundamentalsApi$get_fundamental_standardized_financials(id)
     }, silent=T)
     if (is.null(response)) {
-      return("Invalid API Key: please input a valid API key as a string")
+      stop("Invalid API Key: please input a valid API key as a string")
     }
 
     response <- FundamentalsApi$get_fundamental_standardized_financials(id)
@@ -273,10 +273,10 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
       opts <- list(start_date = as.Date(start_date), end_date = as.Date(end_date), page_size = rows)
     }, silent=T)
     if("try-error" %in% class(t)) {
-      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+      stop("Invalid Date format: date must be a string in the format %Y-%m-%d")
     }
     if (start_date >= end_date) {
-      return("Invalid Input: end_date must be later than start_date")
+      stop("Invalid Input: end_date must be later than start_date")
     }
   }
   else if (start_date != '') {
@@ -284,7 +284,7 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
       opts <- list(start_date = as.Date(start_date), page_size = rows)
     }, silent=T)
     if("try-error" %in% class(t)) {
-      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+      stop("Invalid Date format: date must be a string in the format %Y-%m-%d")
     }
   }
   else if (end_date != '') {
@@ -292,7 +292,7 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
       opts <- list(end_date = as.Date(end_date), page_size = rows)
     }, silent=T)
     if("try-error" %in% class(t)) {
-      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+      stop("Invalid Date format: date must be a string in the format %Y-%m-%d")
     }
   }
   else {
@@ -308,7 +308,7 @@ gather_stock_time_series <- function(api_key, ticker, start_date='', end_date=''
 
   }, silent=T)
   if(is.null(result)) {
-    return("Invalid API Key: please input a valid API key as a string")
+    stop("Invalid API Key: please input a valid API key as a string")
   }
 
   return(result)
@@ -339,10 +339,10 @@ gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
   t <- try({buy_date <- as.Date(buy_date)
             sell_date <- as.Date(sell_date)}, silent=T)
   if("try-error" %in% class(t)) {
-      return("Invalid Date format: date must be a string in the format %Y-%m-%d")
+      stop("Invalid Date format: date must be a string in the format %Y-%m-%d")
   }
   if (buy_date >= sell_date){
-      return("Invalid Input: sell_date must be later than buy_date")
+      stop("Invalid Input: sell_date must be later than buy_date")
   }
 
   client <- IntrinioSDK::ApiClient$new()
@@ -362,7 +362,7 @@ gather_stock_returns <- function(api_key, ticker, buy_date, sell_date) {
   t <- try({opts <- list(start_date=buy_date, end_date=sell_date)
             x <- SecurityApi$get_security_stock_prices('AAPL', opts)$content$stock_prices_data_frame$adj_close}, silent=T)
   if(is.null(x)) {
-      return("Invalid API Key: please input a valid API key as a string")
+      stop("Invalid API Key: please input a valid API key as a string")
   }
 
   # create vectors to record the results
