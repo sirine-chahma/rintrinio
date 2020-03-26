@@ -138,5 +138,8 @@ gather_stock_returns(api_key = api_key,
                      sell_date = "2020-01-01")
 ```
 
+As a start, here are a few tickers that you can use : 'AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM'.
+
+Here are some examples of statements : 'income_statement', 'balance_sheet_statement', 'cash_flow_statement'.
 
 # References

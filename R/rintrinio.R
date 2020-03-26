@@ -143,7 +143,6 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 
 gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
 
-
   statements <-  c('income_statement', 'balance_sheet_statement', 'cash_flow_statement')
 
   #Check if the statement is valid
@@ -258,6 +257,7 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #' gather_stock_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'AAPL',
 #' "2017-12-31", "2019-03-01")
 gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='', allow_max_rows=FALSE) {
+
 
   # set up allow_max_rows output
   if (allow_max_rows == FALSE) {
