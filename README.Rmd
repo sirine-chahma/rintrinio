@@ -12,13 +12,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-
-library(devtools)
-#library(dplyr)
-devtools::install_github("UBC-MDS/rintrinio")
-#devtools::install_github("intrinio/r-sdk")
-
-api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
 # rintrinio
 
