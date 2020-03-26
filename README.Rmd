@@ -14,9 +14,6 @@ knitr::opts_chunk$set(
 )
 
 library(devtools)
-#library(dplyr)
-devtools::install_github("UBC-MDS/rintrinio")
-#devtools::install_github("intrinio/r-sdk")
 
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
@@ -54,10 +51,11 @@ devtools::install_github("UBC-MDS/rintrinio")
 
 ## Coverage
 
-To get the line coverage, run the following command line code  : 
+To get the line coverage, run the following from the R Console: 
 
 ```r
-install.packages("covr")
+if(!require(covr)) { install.packages("covr") }
+library("covr")
 covr::report()
 ```
 
@@ -75,7 +73,7 @@ If you are using a free version of Intrinio for educational purposes, please not
 Note that the API key must be of type `character` when it is used in our functions. Hence, don't forget to use quotation marks when you use your API key.
 
 #### Installing Intrinio R SDK
-Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r).
+Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r). Note that Intrinio R SDK should be installed prior to installing rintrinio.
 
 In an R console, install `devtools` if it is not already installed:
 ```r
@@ -108,31 +106,27 @@ R version 3.6.1 and R packages:
 
 ### Usage
 ```{r}
-#library(rintrinio)
-devtools::load_all()
+library(rintrinio)
 
 # Gather Financial Statement Time Series Function
 gather_financial_statement_time_series(api_key = api_key, 
                                        ticker = 'AAPL', 
                                        statement = 'balance_sheet_statement', 
                                        year = c("2018", "2019"),
-                                       period = c('Q1')) %>% 
-  filter(type == "year" | type == "cashandequivalents")
+                                       period = c('Q1'))
 
 # Gather Financial Statement Cross-Company Comparison Function
 gather_financial_statement_company_compare(api_key = api_key, 
                                            ticker = c("AAPL", "CSCO"), 
                                            statement = "income_statement", 
                                            year = "2018", 
-                                           period = "Q1") %>% 
-  filter(name == "ticker" | name == "sgaexpense")
+                                           period = "Q1")
 
 # Gather Stock Price Time Series Function
 gather_stock_time_series(api_key = api_key,
                          ticker = "CSCO",
                          start_date = "2020-02-01",
-                         end_date = "2020-02-05") %>% 
-  select(date, low, high)
+                         end_date = "2020-02-05")
 
 # Gather Stock Returns Function
 gather_stock_returns(api_key = api_key,
@@ -141,8 +135,8 @@ gather_stock_returns(api_key = api_key,
                      sell_date = "2020-01-01")
 ```
 
-As a start, here are a few tickers that you can use : 'AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM'.
+If you are using a Sandbox API key, the following tickers will work in all of the functions: 'AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM'
 
-Here are some examples of statements : 'income_statement', 'balance_sheet_statement', 'cash_flow_statement'.
+Available statements include: 'income_statement', 'balance_sheet_statement', 'cash_flow_statement'
 
 # References
