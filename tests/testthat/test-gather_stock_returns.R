@@ -20,18 +20,18 @@ test_that("Stock returns should be correctly calculated", {
 
 test_that("Check the validation of api_key", {
     msg <- "Invalid API Key: please input a valid API key as a string"
-    expect_equal(gather_stock_returns('abc', 'AAPL', buy_date = buy_date, sell_date = sell_date), msg)
+    expect_error(gather_stock_returns('abc', 'AAPL', buy_date = buy_date, sell_date = sell_date), msg)
 })
 
 
 test_that("Check if the function correctly handles the input dates in wrong formats", {
     msg <- "Invalid Date format: date must be a string in the format %Y-%m-%d"
-    expect_equal(gather_stock_returns(api_key, 'AAPL', '2018', sell_date), msg)
+    expect_error(gather_stock_returns(api_key, 'AAPL', '2018', sell_date), msg)
 })
 
 
 test_that("Make sell_date earlier to buy date. See if the function handles this exception.", {
     msg <- "Invalid Input: sell_date must be later than buy_date"
-    expect_equal(gather_stock_returns(api_key, 'AAPL', buy_date='2019-01-01', sell_date='2017-01-01'), msg)
+    expect_error(gather_stock_returns(api_key, 'AAPL', buy_date='2019-01-01', sell_date='2017-01-01'), msg)
 })
 
