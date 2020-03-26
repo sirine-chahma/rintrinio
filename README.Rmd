@@ -12,6 +12,12 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+library(devtools)
+#library(dplyr)
+devtools::install_github("UBC-MDS/rintrinio")
+#devtools::install_github("intrinio/r-sdk")
+
 api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
 # rintrinio
@@ -72,15 +78,10 @@ In an R console, install `devtools` if it is not already installed:
 if(!require(devtools)) { install.packages("devtools") }
 ```
 
-Clone the Intrinio R SDK Github Repository:
+Install Intrinio SDK from Github:
 ``` r
-git clone https://github.com/intrinio/r-sdk.git
-```
-
-Set your working directory to where you cloned the Intrinio R SDK Github Repository and install the `IntrinioSDK` package via the R console:
-```r
 library(devtools)
-install(".")
+devtools::install_github("intrinio/r-sdk")
 ```
 
 #### Program and Package Dependencies
@@ -94,8 +95,8 @@ R version 3.6.1 and R packages:
 
 ### Usage
 ```{r}
-library(rintrinio)
-library(dplyr)
+#library(rintrinio)
+devtools::load_all()
 
 # Gather Financial Statement Time Series Function
 gather_financial_statement_time_series(api_key = api_key, 
