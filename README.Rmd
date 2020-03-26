@@ -64,6 +64,8 @@ Before using any functions included in this package, you must sign up for an app
 
 If you are using a free version of Intrinio for educational purposes, please note that you will only have access to the [Developer Sandbox](https://product.intrinio.com/developer-sandbox) so use that API key in functions.
 
+Note that the API key must be of type `character` when it is used in our functions. Hence, don't forget to use quotation marks when you use your API key.
+
 #### Installing Intrinio R SDK
 Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r).
 
@@ -92,6 +94,15 @@ R version 3.6.1 and R packages:
 - IntrinioSDK==0.1.0 [@intrinio]
 - testthat==2.3.1 [@testthat]
 
+
+## Functions
+
+1. **gather_financial_statement_time_series()**: This function takes in a single stock ticker symbol, the statement, the year, and a vector of various periods to compare. It returns a data frame of the information in the selected statement, for a time-series analysis of the company specified.
+2. **gather_financial_statement_company_compare()**: This function takes in a vector containing the tickers of the companies we want to compare, the statement we want to focus on, and the year and the period of the year we want to study. It returns a dataframe of the information in the selected statement, for the selected companies at the wanted time.
+3. **gather_stock_time_series()**: This function takes in a single stock ticker symbol and returns historical stock price data from a timeframe, returned as a dataframe.
+4. **gather_stock_returns()**: This function takes in multiple stock ticker symbols, buy-in date, sell-out date and returns a dataframe containing the historical prices at buy-in and sell-out date as well as the corresponding returns (profit/loss).
+
+
 ### Usage
 ```{r}
 library(rintrinio)
@@ -109,7 +120,7 @@ gather_financial_statement_time_series(api_key = api_key,
 gather_financial_statement_company_compare(api_key = api_key, 
                                            ticker = c("AAPL", "CSCO"), 
                                            statement = "income_statement", 
-                                           year = "2019", 
+                                           year = "2018", 
                                            period = "Q1") %>% 
   filter(name == "ticker" | name == "sgaexpense")
 
@@ -127,11 +138,8 @@ gather_stock_returns(api_key = api_key,
                      sell_date = "2020-01-01")
 ```
 
-## Functions
+As a start, here are a few tickers that you can use : 'AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM'.
 
-1. **gather_financial_statement_time_series()**: This function takes in a single stock ticker symbol, the statement, the year, and a vector of various periods to compare. It returns a data frame of the information in the selected statement, for a time-series analysis of the company specified.
-2. **gather_financial_statement_company_compare()**: This function takes in a vector containing the tickers of the companies we want to compare, the statement we want to focus on, and the year and the period of the year we want to study. It returns a dataframe of the information in the selected statement, for the selected companies at the wanted time.
-3. **gather_stock_time_series()**: This function takes in a single stock ticker symbol and returns historical stock price data from a timeframe, returned as a dataframe.
-4. **gather_stock_returns()**: This function takes in multiple stock ticker symbols, buy-in date, sell-out date and returns a dataframe containing the historical prices at buy-in and sell-out date as well as the corresponding returns (profit/loss).
+Here are some examples of statements : 'income_statement', 'balance_sheet_statement', 'cash_flow_statement'.
 
 # References

@@ -85,6 +85,7 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
       if (is.null(fundamentals)) {
         return("Invalid API Key: please input a valid API key as a string")
       }
+      fundamentals <- FundamentalsApi$get_fundamental_standardized_financials(key)
 
       temp_result <- c(c('ticker',ticker), c('statement', statement), c('year', i), c('period', j))
 
@@ -142,7 +143,6 @@ gather_financial_statement_time_series <- function(api_key, ticker, statement, y
 
 gather_financial_statement_company_compare <- function(api_key, ticker, statement, year, period){
 
-
   statements <-  c('income_statement', 'balance_sheet_statement', 'cash_flow_statement')
 
   #Check if the statement is valid
@@ -187,10 +187,9 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
   #final dataframe
   result = c()
 
-  for (comp in seq(length(ticker))){
-
+  for (comp in ticker){
     #set the id
-    id <- paste(ticker[comp], statement, year, period, sep='-')
+    id <- paste(comp, statement, year, period, sep='-')
 
     # throw an error if the API key is invalid
     api_error <- try({
@@ -200,8 +199,10 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
       return("Invalid API Key: please input a valid API key as a string")
     }
 
+    response <- FundamentalsApi$get_fundamental_standardized_financials(id)
+
     #create a vector for each information
-    my_list <- c(c('ticker',ticker[comp]), c('statement', statement), c('year', year), c('period', period))
+    my_list <- c(c('ticker', comp), c('statement', statement), c('year', year), c('period', period))
 
     for (i in 1:(length(response$content$standardized_financials))){
       value <- response$content$standardized_financials[[i]]$value
@@ -256,6 +257,7 @@ gather_financial_statement_company_compare <- function(api_key, ticker, statemen
 #' gather_stock_time_series('OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1', 'AAPL',
 #' "2017-12-31", "2019-03-01")
 gather_stock_time_series <- function(api_key, ticker, start_date='', end_date='', allow_max_rows=FALSE) {
+
 
   # set up allow_max_rows output
   if (allow_max_rows == FALSE) {
