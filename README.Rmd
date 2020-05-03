@@ -12,13 +12,21 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+library(devtools)
+
+api_key <- 'OjhlMjhjNTBmY2IyMWJiMWE0MTExYjQwNWZmZTVkZWM1'
 ```
 # rintrinio
 
 <!-- badges: start -->
+[![R build status](https://github.com/UBC-MDS/rintrinio/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rintrinio/actions)
+[![codecov](https://codecov.io/gh/UBC-MDS/rintrinio/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/rintrinio)
 <!-- badges: end -->
 
 R [@R] package converts Intrinio [@intrinio] objects and lists to dataframes.
+
+The vignette can be found [here](https://ubc-mds.github.io/rintrinio/).
 
 ## The Project
 
@@ -34,17 +42,21 @@ R is an object-oriented programming language, which has allowed contributors of 
 
 ## Installation
 
-You can install the released version of rintrinio from [CRAN](https://CRAN.R-project.org) with:
+You can install the current version of rintrinio from github with:
 
 ``` r
-install.packages("rintrinio")
+library(devtools)
+devtools::install_github("UBC-MDS/rintrinio")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+## Coverage
 
-``` r
-# install.packages("devtools")
-devtools::install_github("Zhang-Haipeng/rintrinio")
+To get the line coverage, run the following from the R Console: 
+
+```r
+if(!require(covr)) { install.packages("covr") }
+library("covr")
+covr::report()
 ```
 
 ### Dependencies
@@ -56,31 +68,33 @@ Before using any functions included in this package, you must sign up for an app
 2. In the left hand menu, select `API KEYS`
 3. Copy your relevant API Key. Note that this is unique to you and should not be shared.
 
+If you are using a free version of Intrinio for educational purposes, please note that you will only have access to the [Developer Sandbox](https://product.intrinio.com/developer-sandbox) so use that API key in functions.
+
+Note that the API key must be of type `character` when it is used in our functions. Hence, don't forget to use quotation marks when you use your API key.
+
 #### Installing Intrinio R SDK
-Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r).
+Please note that the Intrinio R SDK is not available via CRAN. To install, follow these steps, as outlined in the [Intrinio R Documentation](https://docs.intrinio.com/documentation/r). Note that Intrinio R SDK should be installed prior to installing rintrinio.
 
 In an R console, install `devtools` if it is not already installed:
-``` r
+```r
 if(!require(devtools)) { install.packages("devtools") }
 ```
 
-Clone the Intrinio R SDK Github Repository:
-``` r
-git clone https://github.com/intrinio/r-sdk.git
-```
-
-Set your working directory to where you cloned the Intrinio R SDK Github Repository and install the `IntrinioSDK` package via the R console:
+Install Intrinio SDK from Github:
 ``` r
 library(devtools)
-install(".")
+devtools::install_github("intrinio/r-sdk")
 ```
 
 #### Program and Package Dependencies
+
 R version 3.6.1 and R packages:
 
 - knitr==1.26 [@knitr]
 - tidyverse==1.2.1 [@tidyverse]
 - IntrinioSDK==0.1.0 [@intrinio]
+- testthat==2.3.1 [@testthat]
+
 
 ## Functions
 
@@ -88,5 +102,41 @@ R version 3.6.1 and R packages:
 2. **gather_financial_statement_company_compare()**: This function takes in a vector containing the tickers of the companies we want to compare, the statement we want to focus on, and the year and the period of the year we want to study. It returns a dataframe of the information in the selected statement, for the selected companies at the wanted time.
 3. **gather_stock_time_series()**: This function takes in a single stock ticker symbol and returns historical stock price data from a timeframe, returned as a dataframe.
 4. **gather_stock_returns()**: This function takes in multiple stock ticker symbols, buy-in date, sell-out date and returns a dataframe containing the historical prices at buy-in and sell-out date as well as the corresponding returns (profit/loss).
+
+
+### Usage
+```{r}
+library(rintrinio)
+
+# Gather Financial Statement Time Series Function
+gather_financial_statement_time_series(api_key = api_key, 
+                                       ticker = 'AAPL', 
+                                       statement = 'balance_sheet_statement', 
+                                       year = c("2018", "2019"),
+                                       period = c('Q1'))
+
+# Gather Financial Statement Cross-Company Comparison Function
+gather_financial_statement_company_compare(api_key = api_key, 
+                                           ticker = c("AAPL", "CSCO"), 
+                                           statement = "income_statement", 
+                                           year = "2018", 
+                                           period = "Q1")
+
+# Gather Stock Price Time Series Function
+gather_stock_time_series(api_key = api_key,
+                         ticker = "CSCO",
+                         start_date = "2020-02-01",
+                         end_date = "2020-02-05")
+
+# Gather Stock Returns Function
+gather_stock_returns(api_key = api_key,
+                     ticker = c("AAPL", "CSCO"),
+                     buy_date = "2019-01-01",
+                     sell_date = "2020-01-01")
+```
+
+If you are using a Sandbox API key, the following tickers will work in all of the functions: 'AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DWDP', 'GE', 'GS', 'HD', 'IBM', 'INTC', 'JNJ', 'JPM', 'KO', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PFE', 'PG', 'TRV', 'UNH', 'UTX', 'V', 'VZ', 'WMT', 'XOM'
+
+Available statements include: 'income_statement', 'balance_sheet_statement', 'cash_flow_statement'
 
 # References
